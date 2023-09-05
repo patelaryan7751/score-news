@@ -3,6 +3,7 @@ import Home from "../pages/Home";
 import React from "react";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
+import AccountLayout from "../layouts/account";
 
 const router = createBrowserRouter([
   {
@@ -18,9 +19,9 @@ const router = createBrowserRouter([
     element: <SignUp />,
   },
   // Protected Routes
-  //   {
-  //     path: "account",
-  //     element: <AccountLayout />
-  //   },
+  {
+    path: "account",
+    element: <AccountLayout />,
+  },
 ]);
 export default router;
