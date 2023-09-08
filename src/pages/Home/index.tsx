@@ -1,9 +1,10 @@
 import React from "react";
+import Appbar from "../../layouts/account/Appbar";
 
 function Home() {
   return (
     <div>
-      <h1 className="text-xl text-blue-500">Hello World!</h1>
+      <Appbar />
     </div>
   );
 }
