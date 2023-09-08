@@ -1,11 +1,17 @@
 import React from "react";
 import Appbar from "../../layouts/account/Appbar";
+import AllMatches from "../../components/Matches";
 
 function Home() {
   return (
-    <div>
+    <>
       <Appbar />
-    </div>
+      <main>
+        <div className="mx-auto py-4 px-4">
+          <AllMatches />
+        </div>
+      </main>
+    </>
   );
 }
 
