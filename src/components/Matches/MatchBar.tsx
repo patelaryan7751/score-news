@@ -1,44 +1,57 @@
-import React, { useEffect, useState } from "react";
-import { API_ENDPOINT } from "../../config/constants";
+import React from "react";
+import { Match, Team } from "../../context/matches/types";
+import { useMatchesState } from "../../context/matches/context";
+import { useMatchesDispatch } from "../../context/matches/context";
+import { fetchMatch } from "../../context/matches/action";
+interface MatchProps {
+  match: Match;
+}
 
-const MatchBar = () => {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${API_ENDPOINT}/matches`);
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        console.log(data);
-        setData(data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
+const MatchBar = (props: MatchProps) => {
+  const { endsAt, isRunning, location, sportName, name, teams, id } =
+    props?.match;
+  let state: any = useMatchesState();
+  const { isLoading } = state;
+  const matchDispatch = useMatchesDispatch();
   return (
     <>
-      <div className="flex-shrink-0 w-80 bg-white shadow-lg mx-2 p-4 rounded-md">
+      <div
+        key={id}
+        className="flex-shrink-0 w-80 bg-white shadow-lg mx-2 p-4 rounded-md"
+      >
         <div className="flex justify-between">
           <div>
-            <h2 className="text-xl font-bold ">Cricket</h2>
-            <p className="text-sm font-normal">IPL 2023,Delhi</p>
+            <h2 className="text-xl font-bold ">
+              {sportName}
+              {isRunning ? (
+                <>
+                  <span className="animate-pulse bg-red-500 text-white font-bold rounded-md m-3 px-3 py-1 text-xs ">
+                    Live
+                  </span>
+                </>
+              ) : (
+                <></>
+              )}
+            </h2>
+            <p className="text-sm font-normal">{name}</p>
           </div>
           <div>
-            <button>
+            <button
+              onClick={() => {
+                fetchMatch(matchDispatch, Number(id));
+              }}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-6 h-6 "
+                className={`w-6 h-6 ${
+                  isLoading.matchId === Number(id) && isLoading.status
+                    ? " animate-spin "
+                    : ""
+                }`}
               >
                 <path
                   strokeLinecap="round"
@@ -51,18 +64,21 @@ const MatchBar = () => {
         </div>
         <div className="flex justify-between mt-2">
           <div>
-            <h2 className="text-md font-bold ">CSK</h2>
-            <h2 className="text-md font-bold ">GT</h2>
+            {teams.map((team: Team) => (
+              <h2 key={team?.id} className="text-md font-bold ">
+                {team?.name}
+              </h2>
+            ))}
           </div>
           <div>
-            <p>
-              (20 Overs)
-              <span className="text-md font-bold "> 235/5</span>
-            </p>
-            <p>
-              (20 Overs)
-              <span className="text-md font-bold "> 235/5</span>
-            </p>
+            {teams.map((team: Team) => (
+              <p
+                key={`${team?.name}${team?.id}`}
+                className="text-md font-bold "
+              >
+                {team?.id}
+              </p>
+            ))}
           </div>
         </div>
       </div>

@@ -1,18 +1,31 @@
 import React from "react";
 import MatchBar from "./MatchBar";
+import { useMatchesState } from "../../context/matches/context";
+import { Match } from "../../context/matches/types";
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
-export default function Example() {
+export default function MatchesList() {
+  let state: any = useMatchesState();
+  console.log(state.matches, "li");
+  const { matches, isLoading, isError, errorMessage } = state;
+  if (matches.length === 0 && isLoading) {
+    return <span>Loading...</span>;
+  }
   return (
     <div>
       <h3 className="text-2xl px-2 font-bold leading-6 text-gray-900">
         Live Games
       </h3>
       <div className="flex overflow-x-scroll py-4 w-screen custom-scrollbar">
-        <MatchBar />
+        {matches.map((match: Match, index: number) => {
+          if (match?.isRunning) {
+            return <MatchBar match={match} key={index} />;
+          }
+        })}
+        {matches.map((match: Match, index: number) => {
+          if (!match?.isRunning) {
+            return <MatchBar match={match} key={index} />;
+          }
+        })}
       </div>
     </div>
   );
