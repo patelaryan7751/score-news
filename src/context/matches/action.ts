@@ -9,7 +9,6 @@ export const fetchMatches = async (dispatch: any) => {
       },
     });
     const data = await response.json();
-    console.log("hi", data);
     dispatch({ type: "FETCH_MATCHES_SUCCESS", payload: data.matches });
   } catch (error) {
     console.log("Error fetching matches:", error);
@@ -30,7 +29,6 @@ export const fetchMatch = async (dispatch: any, id: number) => {
       },
     });
     const data = await response.json();
-    console.log("hi45", data);
     dispatch({ type: "FETCH_MATCH_SUCCESS", payload: data });
   } catch (error) {
     console.log("Error fetching matches:", error);
@@ -40,29 +38,3 @@ export const fetchMatch = async (dispatch: any, id: number) => {
     });
   }
 };
-
-// export const addMember = async (dispatch: any, args: any) => {
-//   try {
-//     const token = localStorage.getItem("authToken") ?? "";
-//     const response = await fetch(`${API_ENDPOINT}/users`, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//         Authorization: `Bearer ${token}`,
-//       },
-//       body: JSON.stringify(args),
-//     });
-//     if (!response.ok) {
-//       throw new Error("Failed to create member");
-//     }
-//     const data = await response.json();
-//     if (data.errors && data.errors.length > 0) {
-//       return { ok: false, error: data.errors[0].message };
-//     }
-//     dispatch({ type: "ADD_MEMBER_SUCCESS", payload: data.user });
-//     return { ok: true };
-//   } catch (error) {
-//     console.error("Operation failed:", error);
-//     return { ok: false, error };
-//   }
-// };

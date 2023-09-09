@@ -9,6 +9,7 @@ export const initialState: MatchState = {
   isError: {
     matchId: -1,
     error: false,
+    errMsg: "",
   },
   isAllMatchesError: false,
   isAllMatchesLoading: false,
@@ -26,7 +27,6 @@ export const reducer = (
         isAllMatchesLoading: true,
       };
     case "FETCH_MATCHES_SUCCESS":
-      console.log(action.payload, "hi2");
       return {
         ...state,
         isAllMatchesLoading: false,
@@ -55,7 +55,6 @@ export const reducer = (
           return match;
         }
       });
-      console.log(modifiedMatches, "hii23");
       return {
         ...state,
         isLoading: {
@@ -74,8 +73,8 @@ export const reducer = (
         isError: {
           matchId: action.payload.matchId,
           error: true,
+          errMsg: action.payload.errrMsg,
         },
-        errorMessage: action.payload.errrMsg,
       };
 
     default:

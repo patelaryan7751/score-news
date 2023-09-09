@@ -21,6 +21,7 @@ interface isLoadingMatchType {
 interface isErrorMatchType {
   matchId: number;
   error: boolean;
+  errMsg: string;
 }
 
 export interface MatchState {

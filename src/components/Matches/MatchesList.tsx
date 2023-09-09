@@ -5,10 +5,13 @@ import { Match } from "../../context/matches/types";
 
 export default function MatchesList() {
   let state: any = useMatchesState();
-  console.log(state.matches, "li");
-  const { matches, isLoading, isError, errorMessage } = state;
-  if (matches.length === 0 && isLoading) {
+  const { matches, isAllMatchesLoading, isAllMatchesError, errorMessage } =
+    state;
+  if (matches.length === 0 && isAllMatchesLoading) {
     return <span>Loading...</span>;
+  }
+  if (isAllMatchesError) {
+    return <span>{errorMessage}</span>;
   }
   return (
     <div>

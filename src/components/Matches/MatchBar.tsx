@@ -8,11 +8,13 @@ interface MatchProps {
 }
 
 const MatchBar = (props: MatchProps) => {
-  const { endsAt, isRunning, location, sportName, name, teams, id } =
-    props?.match;
+  const { isRunning, location, sportName, name, teams, id } = props?.match;
   let state: any = useMatchesState();
-  const { isLoading } = state;
+  const { isLoading, isError } = state;
   const matchDispatch = useMatchesDispatch();
+  if (isError.error && isError.matchId === id) {
+    return <span>{isError.errMsg}</span>;
+  }
   return (
     <>
       <div
