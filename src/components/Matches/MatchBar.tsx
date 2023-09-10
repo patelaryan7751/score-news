@@ -8,7 +8,7 @@ interface MatchProps {
 }
 
 const MatchBar = (props: MatchProps) => {
-  const { isRunning, location, sportName, name, teams, id } = props?.match;
+  const { isRunning, sportName, name, teams, id } = props?.match;
   let state: any = useMatchesState();
   const { isLoading, isError } = state;
   const matchDispatch = useMatchesDispatch();
@@ -27,7 +27,7 @@ const MatchBar = (props: MatchProps) => {
               {sportName}
               {isRunning ? (
                 <>
-                  <span className="animate-pulse bg-red-500 text-white font-bold rounded-md m-3 px-3 py-1 text-xs ">
+                  <span className="animate-pulse bg-red-500 text-white font-bold rounded-md mx-2 px-4 py-1  text-xs ">
                     Live
                   </span>
                 </>
