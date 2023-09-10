@@ -8,7 +8,7 @@ function Home() {
     <>
       <Appbar />
       <main>
-        <div className="mx-auto py-4 px-4 overflow-hidden">
+        <div className="mx-auto py-4 px-4 overflow-hidden ">
           <AllMatches />
           <AllNews />
         </div>
