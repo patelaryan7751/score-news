@@ -1,20 +1,14 @@
-import React from "react";
-import ArticleCard from "./ArticleCard";
+import React, { useEffect } from "react";
 import FavouriteNews from "./FavouriteNews";
 import NewsPane from "./NewsPane";
+import { useAllSportsDispatch } from "../../context/sports/context";
+import { fetchAllSports } from "../../context/sports/action";
 
 function AllNews() {
-  const tabs = [
-    { name: "Your News", href: "#", current: true },
-    { name: "Cricket", href: "#", current: false },
-    { name: "BasketBall", href: "#", current: false },
-    { name: "Field Hockey", href: "#", current: false },
-    { name: "Tennis", href: "#", current: false },
-  ];
-
-  function classNames(...classes) {
-    return classes.filter(Boolean).join(" ");
-  }
+  const dispatchSports = useAllSportsDispatch();
+  useEffect(() => {
+    fetchAllSports(dispatchSports);
+  }, []);
   return (
     <div>
       <h3 className="text-2xl px-2 my-5 font-bold leading-6 text-gray-900">

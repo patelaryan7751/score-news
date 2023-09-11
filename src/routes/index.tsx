@@ -18,6 +18,10 @@ const router = createBrowserRouter([
     path: "/signup",
     element: <SignUp />,
   },
+  {
+    path: "/sports/:id",
+    element: <Home />,
+  },
   // Protected Routes
   {
     path: "account",
