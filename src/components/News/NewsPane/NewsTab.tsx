@@ -1,28 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
 import { useAllSportsState } from "../../../context/sports/context";
 import { Sport } from "../../../context/sports/types";
-import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
-interface SportTabPageParams extends Record<string, string> {
-  id: string;
-}
+import { useTabDispatch, useTabState } from "../../../context/tabs/context";
+import { changeTab } from "../../../context/tabs/action";
 
 function NewsTab() {
   let state: any = useAllSportsState();
-  const { id } = useParams<SportTabPageParams>();
+  let tabstate: any = useTabState();
+  const dispatchTabs = useTabDispatch();
   const { isLoading, sports } = state;
   const navigate = useNavigate();
-  const [selectedTab, setSelectedTab] = useState<string>(id);
 
   const handleChange = (event: any) => {
-    setSelectedTab(event.target.value);
+    changeTab(dispatchTabs, { id: event.target.value });
     if (event.target.value === "yournews") {
       navigate("/");
     } else {
       navigate(`/sports/${Number(event.target.value)}`);
     }
+  };
+  const handleTab = (id: string | undefined) => {
+    changeTab(dispatchTabs, { id: id });
   };
   if (isLoading) {
     return <>LOADING...</>;
@@ -38,7 +38,7 @@ function NewsTab() {
             <select
               id="current-tab"
               name="current-tab"
-              value={selectedTab}
+              value={tabstate.id}
               onChange={handleChange}
               className="block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             >
@@ -57,14 +57,17 @@ function NewsTab() {
               <Link
                 key={"Your News"}
                 to={`/`}
+                onClick={() => {
+                  handleTab("yournews");
+                }}
                 className={`
                 ${
-                  id === undefined
+                  tabstate.id === "yournews"
                     ? " border-gray-700 text-gray-700 font-extrabold "
                     : " border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 "
                 }
                 whitespace-nowrap border-b-2 px-1 pb-2 text-sm font-medium`}
-                aria-current={id === undefined ? "page" : undefined}
+                aria-current={tabstate.id === "yournews" ? "page" : undefined}
               >
                 Your News
               </Link>
@@ -72,14 +75,21 @@ function NewsTab() {
                 <Link
                   key={sport.name}
                   to={`/sports/${sport?.id}`}
+                  onClick={() => {
+                    handleTab(String(sport?.id));
+                  }}
                   className={`
                 ${
-                  Number(id) === sport?.id
+                  String(tabstate.id) === String(sport?.id)
                     ? " border-gray-700 text-gray-700 font-extrabold "
                     : " border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 "
                 }
                 whitespace-nowrap border-b-2 px-1 pb-2 text-sm font-medium`}
-                  aria-current={Number(id) === sport?.id ? "page" : undefined}
+                  aria-current={
+                    String(tabstate.id) === String(sport?.id)
+                      ? "page"
+                      : undefined
+                  }
                 >
                   {sport?.name}
                 </Link>
