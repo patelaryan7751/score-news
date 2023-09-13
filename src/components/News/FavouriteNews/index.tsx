@@ -15,10 +15,22 @@ function FavouriteNews() {
   const { id } = useParams<SportTabPageParams>();
   const [selectSport, setSelectSport] = useState<string>(`${id}`);
   const [selectTeam, setSelectTeam] = useState<string>();
-  console.log(stateTabs.id, "Lop");
+  // this hook make the sports field similar with the present news tab
   useEffect(() => {
     setSelectSport(stateTabs.id);
   }, [stateTabs]);
+  // this hook set the state of sports and team fields to the top most sports and teams in their respective arrays when the present tab is "Your news"
+  useEffect(() => {
+    if (
+      stateSports?.sports.length > 0 &&
+      stateTabs.id === "yournews" &&
+      stateTeams?.teams.length > 0
+    ) {
+      setSelectSport(stateSports?.sports[0].id);
+      setSelectTeam(stateTeams?.teams[0].id);
+    }
+  }, [stateTabs, stateSports.sports, stateTeams]);
+  //this hook sets the state of team field when a page is refreshed or it is visited the first time
   useEffect(() => {
     if (stateTeams?.teams.length > 0) {
       setSelectTeam(
@@ -30,16 +42,7 @@ function FavouriteNews() {
       );
     }
   }, [stateTabs, selectSport, stateTeams]);
-  useEffect(() => {
-    if (
-      stateSports?.sports.length > 0 &&
-      stateTabs.id === "yournews" &&
-      stateTeams?.teams.length > 0
-    ) {
-      setSelectSport(stateSports?.sports[0].id);
-      setSelectTeam(stateTeams?.teams[0].id);
-    }
-  }, [stateTabs.id, stateSports.sports, stateTeams]);
+
   const getSportNameById = (id: number) => {
     let sportName = stateSports?.sports?.find(
       (sport: Sport) => Number(sport?.id) === Number(id)
