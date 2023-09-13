@@ -14,10 +14,32 @@ function FavouriteNews() {
   let stateTabs: any = useTabState();
   const { id } = useParams<SportTabPageParams>();
   const [selectSport, setSelectSport] = useState<string>(`${id}`);
-  const [selectTeam, setSelectTeam] = useState<string>(`${id}`);
+  const [selectTeam, setSelectTeam] = useState<string>();
+  console.log(stateTabs.id, "Lop");
   useEffect(() => {
     setSelectSport(stateTabs.id);
   }, [stateTabs]);
+  useEffect(() => {
+    if (stateTeams?.teams.length > 0) {
+      setSelectTeam(
+        stateTeams.teams.filter(
+          (team: Team) =>
+            selectSport !== "yournews" &&
+            getSportNameById(Number(selectSport)) === team.plays
+        )[0]?.id
+      );
+    }
+  }, [stateTabs, selectSport, stateTeams]);
+  useEffect(() => {
+    if (
+      stateSports?.sports.length > 0 &&
+      stateTabs.id === "yournews" &&
+      stateTeams?.teams.length > 0
+    ) {
+      setSelectSport(stateSports?.sports[0].id);
+      setSelectTeam(stateTeams?.teams[0].id);
+    }
+  }, [stateTabs.id, stateSports.sports, stateTeams]);
   const getSportNameById = (id: number) => {
     let sportName = stateSports?.sports?.find(
       (sport: Sport) => Number(sport?.id) === Number(id)
@@ -81,7 +103,7 @@ function FavouriteNews() {
         )}
       </div>
       <div className="overflow-y-scroll h-screen custom-scrollbar">
-        {selectSport === "yournews" || selectTeam === "undefined" ? (
+        {selectSport === "yournews" || selectTeam === undefined ? (
           <>
             <div className="flex flex-col items-center justify-center h-96">
               <div>
@@ -102,7 +124,14 @@ function FavouriteNews() {
               </div>
               <div>
                 <p className="text-gray-700 font-semibold">
-                  Please select your favourite sports and team.
+                  Please select your favourite{" "}
+                  {selectSport === "yournews" && selectTeam === undefined
+                    ? "sports and team."
+                    : selectSport === "yournews"
+                    ? "sports"
+                    : selectTeam === undefined
+                    ? "team"
+                    : ""}
                 </p>
               </div>
             </div>
