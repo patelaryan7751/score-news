@@ -1,7 +1,7 @@
 export interface Team {
   id: number;
   name: string;
-  plays: string;
+  plays?: string;
 }
 
 export interface Match {

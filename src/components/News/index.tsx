@@ -12,22 +12,25 @@ import { useTabDispatch } from "../../context/tabs/context";
 import { useNavigate, useParams } from "react-router-dom";
 import { changeTab } from "../../context/tabs/action";
 import { SportTabPageParams } from "../../context/tabs/types";
+import { fetchArticles } from "../../context/articles/action";
+import { useArticlesDispatch } from "../../context/articles/context";
 
 function AllNews() {
   const navigate = useNavigate();
-  const dispatchTabs = useTabDispatch();
   const { id } = useParams<SportTabPageParams>();
+  const dispatchTabs = useTabDispatch();
   const dispatchSports = useAllSportsDispatch();
   const dispatchTeams = useTeamsDispatch();
+  const dispatchArticles = useArticlesDispatch();
   let sportsState: any = useAllSportsState();
   useEffect(() => {
-    console.log(Number.isNaN(Number(id)));
-
     fetchAllSports(dispatchSports);
     fetchTeams(dispatchTeams);
     changeTab(dispatchTabs, { id: id === undefined ? "yournews" : id });
+    fetchArticles(dispatchArticles);
   }, []);
 
+  // this hook ensures that when a invalid id is enetered it should redirect it `/notfound`
   useEffect(() => {
     if (id) {
       if (Number.isNaN(Number(id))) {

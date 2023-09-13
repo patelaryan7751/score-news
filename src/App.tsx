@@ -5,17 +5,20 @@ import { MatchesProvider } from "./context/matches/context";
 import { AllSportsProvider } from "./context/sports/context";
 import { TeamsProvider } from "./context/teams/context";
 import { TabProvider } from "./context/tabs/context";
+import { ArticlesProvider } from "./context/articles/context";
 function App() {
   return (
     <>
       <TabProvider>
-        <TeamsProvider>
-          <AllSportsProvider>
-            <MatchesProvider>
-              <RouterProvider router={router} />
-            </MatchesProvider>
-          </AllSportsProvider>
-        </TeamsProvider>
+        <ArticlesProvider>
+          <TeamsProvider>
+            <AllSportsProvider>
+              <MatchesProvider>
+                <RouterProvider router={router} />
+              </MatchesProvider>
+            </AllSportsProvider>
+          </TeamsProvider>
+        </ArticlesProvider>
       </TabProvider>
     </>
   );
