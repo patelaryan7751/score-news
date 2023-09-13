@@ -7,11 +7,14 @@ import { Team } from "../../../context/matches/types";
 import { useParams } from "react-router-dom";
 import { useTabState } from "../../../context/tabs/context";
 import { SportTabPageParams } from "../../../context/tabs/types";
+import { useArticlesState } from "../../../context/articles/context";
+import FavouriteNewsCardList from "./FavouriteNewsCardList";
 
 function FavouriteNews() {
   let stateSports: any = useAllSportsState();
   let stateTeams: any = useTeamsState();
   let stateTabs: any = useTabState();
+  let stateArticles: any = useArticlesState();
   const { id } = useParams<SportTabPageParams>();
   const [selectSport, setSelectSport] = useState<string>(`${id}`);
   const [selectTeam, setSelectTeam] = useState<string>();
@@ -106,49 +109,7 @@ function FavouriteNews() {
         )}
       </div>
       <div className="overflow-y-scroll h-screen custom-scrollbar">
-        {selectSport === "yournews" || selectTeam === undefined ? (
-          <>
-            <div className="flex flex-col items-center justify-center h-96">
-              <div>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="text-gray-600/75 w-32 h-32"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5zm6-10.125a1.875 1.875 0 11-3.75 0 1.875 1.875 0 013.75 0zm1.294 6.336a6.721 6.721 0 01-3.17.789 6.721 6.721 0 01-3.168-.789 3.376 3.376 0 016.338 0z"
-                  />
-                </svg>
-              </div>
-              <div>
-                <p className="text-gray-700 font-semibold">
-                  Please select your favourite{" "}
-                  {selectSport === "yournews" && selectTeam === undefined
-                    ? "sports and team."
-                    : selectSport === "yournews"
-                    ? "sports"
-                    : selectTeam === undefined
-                    ? "team"
-                    : ""}
-                </p>
-              </div>
-            </div>
-          </>
-        ) : (
-          <>
-            <FavouriteNewsCard />
-            <FavouriteNewsCard />
-            <FavouriteNewsCard />
-            <FavouriteNewsCard />
-            <FavouriteNewsCard />
-            <FavouriteNewsCard />
-          </>
-        )}
+        <FavouriteNewsCardList teamId={selectTeam} sportId={selectSport} />
       </div>
     </div>
   );

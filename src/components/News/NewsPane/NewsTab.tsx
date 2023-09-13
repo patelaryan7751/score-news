@@ -31,7 +31,7 @@ function NewsTab() {
     <div className="mt-5 px-2">
       <div className="mt-3 sm:mt-4 flex lg:flex-row flex-col justify-between">
         <div>
-          <div className="sm:hidden">
+          <div className="sm:hidden my-2">
             <label htmlFor="current-tab" className="sr-only">
               Select a tab
             </label>
@@ -40,7 +40,7 @@ function NewsTab() {
               name="current-tab"
               value={tabstate.id}
               onChange={handleChange}
-              className="block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              className="block w-full rounded-md border-gray-300 py-1 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             >
               <option value={`yournews`} key="Your News">
                 Your News

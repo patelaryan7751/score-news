@@ -48,7 +48,7 @@ function ArticleCardListItems() {
           </div>
           <div>
             <p className="text-gray-700 text-2xl font-semibold">
-              There is no recent news on this topic.
+              No News Found!
             </p>
           </div>
         </div>
@@ -60,22 +60,6 @@ function ArticleCardListItems() {
       {tabBasedArticles.map((article: Article) => (
         <ArticleCard key={article.id} article={article} />
       ))}
-      {/* {articles.map((article: Article) => {
-        console.log(
-          stateTab.id,
-          article?.sport.id,
-          Number(stateTab.id) === Number(article?.sport.id),
-          "kli"
-        );
-        if (
-          Number(stateTab.id) === Number(article?.sport.id) ||
-          stateTab.id === "yournews"
-        ) {
-          return <ArticleCard key={article.id} article={article} />;
-        } else {
-          return "";
-        }
-      })} */}
     </>
   );
 }
