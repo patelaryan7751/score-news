@@ -1,7 +1,7 @@
 import React from "react";
 import Appbar from "../../layouts/account/Appbar";
-import AllMatches from "../../components/Matches";
-import AllNews from "../../components/News";
+import HomePage from "./HomePage";
+import { Outlet } from "react-router-dom";
 
 function Home() {
   return (
@@ -9,8 +9,7 @@ function Home() {
       <Appbar />
       <main>
         <div className="mx-auto py-4 px-4 overflow-hidden ">
-          <AllMatches />
-          <AllNews />
+          <HomePage />
         </div>
       </main>
     </>

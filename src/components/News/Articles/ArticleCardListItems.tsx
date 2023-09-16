@@ -1,9 +1,9 @@
 import React from "react";
 import ArticleCard from "./ArticleCard";
-import { useArticlesState } from "../../context/articles/context";
-import { Article } from "../../context/articles/types";
-import { useTabState } from "../../context/tabs/context";
-import { usesortDateState } from "../../context/sortDate/context";
+import { useArticlesState } from "../../../context/articles/context";
+import { Article } from "../../../context/articles/types";
+import { useTabState } from "../../../context/tabs/context";
+import { usesortDateState } from "../../../context/sortDate/context";
 
 function ArticleCardListItems() {
   let stateArticles: any = useArticlesState();

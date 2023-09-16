@@ -1,6 +1,6 @@
 import React from "react";
 import NewsTab from "./NewsTab";
-import ArticleCardList from "../ArticleCardList";
+import ArticleCardList from "../Articles/ArticleCardList";
 
 function NewsPane() {
   return (

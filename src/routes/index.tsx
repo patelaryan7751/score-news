@@ -5,11 +5,23 @@ import Login from "../pages/Signin";
 import SignUp from "../pages/Signup";
 import AccountLayout from "../layouts/account";
 import NotFound from "../pages/NotFound";
+import ArticleDetails from "../components/News/Articles/ArticleDetails";
 
 const router = createBrowserRouter([
   {
-    path: "/",
     element: <Home />,
+    children: [
+      {
+        path: "/",
+      },
+      {
+        path: "/sports/:id",
+      },
+      {
+        path: "/articleDetails/:id",
+        element: <ArticleDetails />,
+      },
+    ],
   },
   {
     path: "/signin",
@@ -18,10 +30,6 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <SignUp />,
-  },
-  {
-    path: "/sports/:id",
-    element: <Home />,
   },
   // Protected Routes
   {
