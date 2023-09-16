@@ -5,10 +5,20 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useTabDispatch, useTabState } from "../../../context/tabs/context";
 import { changeTab } from "../../../context/tabs/action";
+import {
+  usesortDateDispatch,
+  usesortDateState,
+} from "../../../context/sortDate/context";
+import {
+  changeDate,
+  changeDate_sortAction,
+} from "../../../context/sortDate/action";
 
 function NewsTab() {
   let state: any = useAllSportsState();
   let tabstate: any = useTabState();
+  let sortDateState: any = usesortDateState();
+  const sortDispatch = usesortDateDispatch();
   const dispatchTabs = useTabDispatch();
   const { isLoading, sports } = state;
   const navigate = useNavigate();
@@ -104,12 +114,18 @@ function NewsTab() {
                 type="date"
                 name="date"
                 className="block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                placeholder="John Smith"
+                value={sortDateState?.sortDate}
+                onChange={(e: any) => {
+                  changeDate(sortDispatch, e.target.value);
+                }}
               />
             </div>
             <button
               type="button"
               className="relative -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+              onClick={() => {
+                changeDate_sortAction(sortDispatch, true);
+              }}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

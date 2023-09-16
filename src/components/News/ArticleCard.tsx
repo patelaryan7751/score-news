@@ -8,7 +8,8 @@ interface ArticleCardProps {
 function ArticleCard(props: ArticleCardProps) {
   const { id, title, thumbnail, sport, summary, date, teams } = props.article;
   const dateObject = new Date(date);
-  const formattedDate = dateObject.toLocaleDateString("en-US");
+  const dateOfArticle = dateObject.toISOString().split("T")[0];
+  const time = dateObject.toISOString().split("T")[1].split(".")[0];
   return (
     <div key={id} className="sm:flex m-4 bg-white p-3 rounded-md ">
       <div className="mb-4 mx-auto flex-shrink-0 sm:mb-0 sm:mr-4 order-last">
@@ -24,7 +25,9 @@ function ArticleCard(props: ArticleCardProps) {
         <p className="text-base">{sport.name}</p>
         <h4 className="text-lg font-bold">{title}</h4>
         <p className="mt-1">{summary}</p>
-        <p className="mt-2">{formattedDate}</p>
+        <p className="mt-2">
+          {time} {dateOfArticle}
+        </p>
       </div>
     </div>
   );

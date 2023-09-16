@@ -3,11 +3,12 @@ import ArticleCard from "./ArticleCard";
 import { useArticlesState } from "../../context/articles/context";
 import { Article } from "../../context/articles/types";
 import { useTabState } from "../../context/tabs/context";
+import { usesortDateState } from "../../context/sortDate/context";
 
 function ArticleCardListItems() {
   let stateArticles: any = useArticlesState();
   let stateTab: any = useTabState();
-
+  let stateSorteDate: any = usesortDateState();
   const {
     isAllArticlesLoading,
     articles,
@@ -15,18 +16,39 @@ function ArticleCardListItems() {
     errorMessageAllArticles,
   } = stateArticles;
   console.log(stateTab, "ll");
-  const tabBasedArticles = articles.filter(
-    (article: Article) =>
-      Number(stateTab.id) === Number(article?.sport.id) ||
-      stateTab.id === "yournews"
-  );
+  const tabBasedDateBasedArticles = articles
+    .filter(
+      (article: Article) =>
+        Number(stateTab.id) === Number(article?.sport.id) ||
+        stateTab.id === "yournews"
+    )
+    .sort((a: Article, b: Article) => {
+      let Adate = new Date(a.date);
+      let Bdate = new Date(b.date);
+      return Bdate.getTime() - Adate.getTime();
+    })
+    .filter((article: Article) => {
+      if (stateSorteDate?.sort_action) {
+        const dateObjectArticle = new Date(article?.date);
+        const dateOfArticle = dateObjectArticle.toISOString().split("T")[0];
+        const dateObjectSortDate = new Date(stateSorteDate?.sortDate);
+        const dateOfSortDate = dateObjectSortDate.toISOString().split("T")[0];
+        if (dateOfArticle === dateOfSortDate) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return true;
+      }
+    });
   if (articles.length === 0 && isAllArticlesLoading) {
     return <span>Loading...</span>;
   }
   if (isAllArticlesError) {
     return <span>{errorMessageAllArticles}</span>;
   }
-  if (tabBasedArticles.length === 0) {
+  if (tabBasedDateBasedArticles.length === 0) {
     return (
       <>
         <div className="flex flex-col items-center justify-center h-96">
@@ -57,7 +79,7 @@ function ArticleCardListItems() {
   }
   return (
     <>
-      {tabBasedArticles.map((article: Article) => (
+      {tabBasedDateBasedArticles.map((article: Article) => (
         <ArticleCard key={article.id} article={article} />
       ))}
     </>
