@@ -6,7 +6,7 @@ export interface Article {
   title: string;
   thumbnail: string;
   sport: Sport;
-  date: Date;
+  date: Date | string;
   summary: string;
   teams: Team[];
   content?: string;
@@ -14,6 +14,7 @@ export interface Article {
 
 export interface ArticlesState {
   articles: Article[];
+  article: Article;
   isLoading: boolean;
   isError: boolean;
   errorMessage: string;

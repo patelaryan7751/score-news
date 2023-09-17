@@ -4,7 +4,7 @@ import { useAllSportsState } from "../../../context/sports/context";
 import { Sport } from "../../../context/sports/types";
 import { useTeamsState } from "../../../context/teams/context";
 import { Team } from "../../../context/matches/types";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useTabState } from "../../../context/tabs/context";
 import { SportTabPageParams } from "../../../context/tabs/types";
 import { useArticlesState } from "../../../context/articles/context";
@@ -15,8 +15,12 @@ function FavouriteNews() {
   let stateTeams: any = useTeamsState();
   let stateTabs: any = useTabState();
   let stateArticles: any = useArticlesState();
+  const location = useLocation();
+  const route = location.pathname;
   const { id } = useParams<SportTabPageParams>();
-  const [selectSport, setSelectSport] = useState<string>(`${id}`);
+  const [selectSport, setSelectSport] = useState<string>(
+    `${!route.includes("articleDetails") ? id : ""}`
+  );
   const [selectTeam, setSelectTeam] = useState<string>();
   // this hook make the sports field similar with the present news tab
   useEffect(() => {
