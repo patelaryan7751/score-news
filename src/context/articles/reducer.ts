@@ -50,13 +50,6 @@ export const reducer = (
         article: initialState.article,
       };
     case "FETCH_ARTICLE_SUCCESS":
-      // const modifiedArticles = state?.articles.map((article: Article) => {
-      //   if (Number(article?.id) === Number(action.payload?.id)) {
-      //     return action.payload;
-      //   } else {
-      //     return article;
-      //   }
-      // });
       return {
         ...state,
         isLoading: false,
@@ -70,5 +63,14 @@ export const reducer = (
         errorMessage: action.payload,
         article: initialState.article,
       };
+    case "EMPTY_ARTICLE_STATE":
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        article: initialState.article,
+      };
+    default:
+      return state;
   }
 };

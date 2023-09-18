@@ -2,11 +2,14 @@ import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment, useEffect, useState } from "react";
 import { changeTab } from "../../../../context/tabs/action";
 import { useTabDispatch } from "../../../../context/tabs/context";
+import { emptyArticle } from "../../../../context/articles/action";
+import { useArticlesDispatch } from "../../../../context/articles/context";
 
 function ArticleDetailsCardSkeletonLoader() {
   const [isOpen, setIsOpen] = useState(true);
   const [tab, setTab] = useState<string | undefined>("");
   const dispatchTabs = useTabDispatch();
+  const dispatchArticles = useArticlesDispatch();
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const tabValue = urlParams.get("tab");
@@ -16,6 +19,7 @@ function ArticleDetailsCardSkeletonLoader() {
     changeTab(dispatchTabs, { id: tab });
     history.back();
     setIsOpen(false);
+    emptyArticle(dispatchArticles);
   };
   return (
     <>

@@ -6,7 +6,7 @@ import {
   useArticlesDispatch,
   useArticlesState,
 } from "../../../context/articles/context";
-import { fetchArticle } from "../../../context/articles/action";
+import { emptyArticle, fetchArticle } from "../../../context/articles/action";
 import { useTabDispatch } from "../../../context/tabs/context";
 import { changeTab } from "../../../context/tabs/action";
 import { Team } from "../../../context/teams/types";
@@ -32,6 +32,7 @@ const ArticleDetails = () => {
     changeTab(dispatchTabs, { id: tab });
     history.back();
     setIsOpen(false);
+    emptyArticle(dispatchArticles);
   };
 
   if (isLoading) {

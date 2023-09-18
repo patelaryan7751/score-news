@@ -47,3 +47,7 @@ export const fetchArticle = async (dispatch: any, id: number) => {
     });
   }
 };
+
+export const emptyArticle = async (dispatch: any) => {
+  dispatch({ type: "EMPTY_ARTICLE_STATE" });
+};
