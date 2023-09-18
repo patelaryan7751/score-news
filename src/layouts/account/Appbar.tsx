@@ -24,8 +24,11 @@ const Appbar = () => {
           <div className="mx-auto  px-4 sm:px-6 lg:px-8">
             <div className="flex h-16 items-center justify-between">
               <div className="flex items-center">
-                <div className="flex-shrink-0">
+                <div className="flex-shrink-0 inline-flex">
                   <img className="h-8" src={Logo} alt="Smarter Tasks" />
+                  <span className="text-2xl font-semibold mx-2">
+                    Score News
+                  </span>
                 </div>
               </div>
               <div>
