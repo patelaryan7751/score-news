@@ -2,13 +2,18 @@ import React from "react";
 import MatchBar from "./MatchBar";
 import { useMatchesState } from "../../context/matches/context";
 import { Match } from "../../context/matches/types";
+import MatchSectionSkeletonLoader from "./Loader/MatchSectionSkeletonLoader";
 
 export default function MatchesList() {
   let state: any = useMatchesState();
   const { matches, isAllMatchesLoading, isAllMatchesError, errorMessage } =
     state;
   if (matches.length === 0 && isAllMatchesLoading) {
-    return <span>Loading...</span>;
+    return (
+      <>
+        <MatchSectionSkeletonLoader />
+      </>
+    );
   }
   if (isAllMatchesError) {
     return <span>{errorMessage}</span>;

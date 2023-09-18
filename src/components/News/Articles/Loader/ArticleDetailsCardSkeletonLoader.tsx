@@ -1,42 +1,22 @@
-import React, { useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
-import { useParams } from "react-router-dom";
-import {
-  useArticlesDispatch,
-  useArticlesState,
-} from "../../../context/articles/context";
-import { fetchArticle } from "../../../context/articles/action";
-import { useTabDispatch } from "../../../context/tabs/context";
-import { changeTab } from "../../../context/tabs/action";
-import { Team } from "../../../context/teams/types";
-import ArticleDetailsCardSkeletonLoader from "./Loader/ArticleDetailsCardSkeletonLoader";
+import React, { Fragment, useEffect, useState } from "react";
+import { changeTab } from "../../../../context/tabs/action";
+import { useTabDispatch } from "../../../../context/tabs/context";
 
-const ArticleDetails = () => {
+function ArticleDetailsCardSkeletonLoader() {
   const [isOpen, setIsOpen] = useState(true);
   const [tab, setTab] = useState<string | undefined>("");
-  const { id } = useParams<any>();
-  const dispatchArticles = useArticlesDispatch();
-  let stateArticles: any = useArticlesState();
   const dispatchTabs = useTabDispatch();
-  const { isLoading, article, isError, errorMessage } = stateArticles;
   useEffect(() => {
-    fetchArticle(dispatchArticles, Number(id));
     const urlParams = new URLSearchParams(window.location.search);
     const tabValue = urlParams.get("tab");
-    console.log(tabValue, "lkjhh");
     setTab(tabValue);
   }, []);
-
   const closeModal = () => {
     changeTab(dispatchTabs, { id: tab });
     history.back();
     setIsOpen(false);
   };
-
-  if (isLoading) {
-    return <ArticleDetailsCardSkeletonLoader />;
-  }
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -88,49 +68,48 @@ const ArticleDetails = () => {
                     as="h3"
                     className="text-lg font-light leading-6 text-gray-700/75"
                   ></Dialog.Title>
-                  <div className="mt-4">
+                  <div className="mt-4 animate-pulse">
                     <div className="bg-white">
                       <div className="mx-auto max-w-7xl px-6 lg:px-8">
                         <div className="mx-auto flex max-w-2xl flex-col items-end justify-between gap-16 lg:mx-0 lg:max-w-none lg:flex-row">
                           <div className="w-full lg:max-w-lg lg:flex-auto">
-                            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                              {article?.sport?.name} #{article?.id}
-                            </h2>
-                            <p className="text-sm font-semibold mt-2 ">
-                              {
-                                String(article?.date)
-                                  ?.toString()
-                                  ?.split("T")[1]
-                                  ?.split(".")[0]
-                              }
-                              ,{" "}
-                              {String(article?.date)?.toString()?.split("T")[0]}
-                            </p>
-                            <p className="mt-6 text-xl leading-8 text-gray-600">
-                              {article?.summary}
-                            </p>
-                            <img
+                            <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
+                            <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+                            <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5 mt-6"></div>
+                            <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+                            <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5 mt-6"></div>
+                            {/* <img
                               src={article?.thumbnail}
                               className="mt-16 aspect-[6/5] w-full rounded-2xl bg-gray-50 object-cover lg:aspect-auto lg:h-[34.5rem]"
-                            />
+                            /> */}
+                            <div className="flex items-center justify-center w-full h-96 bg-gray-300 rounded sm:w-96 dark:bg-gray-700">
+                              <svg
+                                className="w-10 h-10 text-gray-200 dark:text-gray-600"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor"
+                                viewBox="0 0 20 18"
+                              >
+                                <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z" />
+                              </svg>
+                            </div>
                           </div>
                           <div className="w-full lg:max-w-xl lg:flex-auto">
-                            <h3 className=" text-3xl font-bold">
-                              {article?.title}
-                            </h3>
-                            <p className="my-3 space-x-2">
-                              {article?.teams?.map((team: Team) => (
-                                <span
-                                  className="bg-gray-200/75 text-gray-600/75 p-2 my-2"
-                                  key={team?.id}
-                                >
-                                  # {team?.name}
-                                </span>
-                              ))}
-                            </p>
-                            <p className="my-6 text-xl leading-8 text-gray-600">
-                              {article?.content}
-                            </p>
+                            <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
+                            <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
+                            <div className="w-full">
+                              <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
+                              <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[480px] mb-2.5"></div>
+                              <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[500px] mb-2.5"></div>
+                              <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[440px] mb-2.5"></div>
+                              <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[460px] mb-2.5"></div>
+                              <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[500px] mb-2.5"></div>
+                              <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[440px] mb-2.5"></div>
+                              <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[460px] mb-2.5"></div>
+                              <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[500px] mb-2.5"></div>
+                              <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[440px] mb-2.5"></div>
+                              <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[460px] mb-2.5"></div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -144,5 +123,6 @@ const ArticleDetails = () => {
       </Transition>
     </>
   );
-};
-export default ArticleDetails;
+}
+
+export default ArticleDetailsCardSkeletonLoader;

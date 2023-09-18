@@ -3,6 +3,7 @@ import { useArticlesState } from "../../../context/articles/context";
 import { Article } from "../../../context/articles/types";
 import { Team } from "../../../context/matches/types";
 import FavouriteNewsCard from "./FavouriteNewsCard";
+import FavouriteNewsCardListSkeletonLoader from "./Loader/FavouriteNewsCardListSkeletonLoader";
 interface FavouriteNewsCardListItemsProps {
   teamId: string;
   sportId: string;
@@ -27,7 +28,7 @@ function FavouriteNewsCardListItems(props: FavouriteNewsCardListItemsProps) {
     }
   };
   if (articles.length === 0 && isAllArticlesLoading) {
-    return <span>Loading...</span>;
+    return <FavouriteNewsCardListSkeletonLoader />;
   }
   if (isAllArticlesError) {
     return <span>{errorMessageAllArticles}</span>;

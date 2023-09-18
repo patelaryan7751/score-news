@@ -14,6 +14,7 @@ import { changeTab } from "../../context/tabs/action";
 import { SportTabPageParams } from "../../context/tabs/types";
 import { fetchArticles } from "../../context/articles/action";
 import { useArticlesDispatch } from "../../context/articles/context";
+import NewsSectionHeadingSkeletonLoader from "./Loader/NewsSectionHeadingSkeletonLoader";
 
 function AllNews() {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ function AllNews() {
   const route = location.pathname;
   console.log(route);
   const { id } = useParams<SportTabPageParams>();
+  let stateSports: any = useAllSportsState();
   const dispatchTabs = useTabDispatch();
   const dispatchSports = useAllSportsDispatch();
   const dispatchTeams = useTeamsDispatch();
@@ -51,9 +53,14 @@ function AllNews() {
   }, [sportsState?.sports]);
   return (
     <div>
-      <h3 className="text-2xl px-2 my-5 font-bold leading-6 text-gray-900">
-        Trending News
-      </h3>
+      {stateSports?.isLoading ? (
+        <NewsSectionHeadingSkeletonLoader />
+      ) : (
+        <h3 className="text-2xl px-2 my-5 font-bold leading-6 text-gray-900">
+          Trending News
+        </h3>
+      )}
+
       <div className="grid md:grid-cols-4 grid-cols-1 bg-slate-200">
         <NewsPane />
         <FavouriteNews />

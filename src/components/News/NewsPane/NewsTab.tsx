@@ -13,6 +13,7 @@ import {
   changeDate,
   changeDate_sortAction,
 } from "../../../context/sortDate/action";
+import NewsTabSectionSkeletonLoader from "./Loader/NewsTabSectionSkeletonLoader";
 
 function NewsTab() {
   let state: any = useAllSportsState();
@@ -35,7 +36,11 @@ function NewsTab() {
     changeTab(dispatchTabs, { id: id });
   };
   if (isLoading) {
-    return <>LOADING...</>;
+    return (
+      <>
+        <NewsTabSectionSkeletonLoader />
+      </>
+    );
   }
   return (
     <div className="mt-5 px-2">

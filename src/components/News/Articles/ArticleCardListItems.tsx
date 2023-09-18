@@ -4,6 +4,7 @@ import { useArticlesState } from "../../../context/articles/context";
 import { Article } from "../../../context/articles/types";
 import { useTabState } from "../../../context/tabs/context";
 import { usesortDateState } from "../../../context/sortDate/context";
+import ArticleCardListSkeletonLoader from "./Loader/ArticleCardListSkeletonLoader";
 
 function ArticleCardListItems() {
   let stateArticles: any = useArticlesState();
@@ -43,7 +44,11 @@ function ArticleCardListItems() {
       }
     });
   if (articles.length === 0 && isAllArticlesLoading) {
-    return <span>Loading...</span>;
+    return (
+      <>
+        <ArticleCardListSkeletonLoader />
+      </>
+    );
   }
   if (isAllArticlesError) {
     return <span>{errorMessageAllArticles}</span>;

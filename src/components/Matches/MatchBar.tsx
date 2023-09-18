@@ -23,11 +23,11 @@ const MatchBar = (props: MatchProps) => {
       >
         <div className="flex justify-between">
           <div>
-            <h2 className="text-xl font-bold ">
+            <h2 className="text-xl font-bold my-1 ">
               {sportName}
               {isRunning ? (
                 <>
-                  <span className="animate-pulse bg-red-500 text-white font-bold rounded-md mx-2 px-4 py-1  text-xs ">
+                  <span className="animate-pulse bg-red-500 text-white font-bold rounded-md mx-2 px-4 py-1 text-xs ">
                     Live
                   </span>
                 </>

@@ -31,7 +31,14 @@ export const fetchArticle = async (dispatch: any, id: number) => {
     });
     const data = await response.json();
     console.log(data, "loi");
-    dispatch({ type: "FETCH_ARTICLE_SUCCESS", payload: data });
+    if (response.ok) {
+      dispatch({ type: "FETCH_ARTICLE_SUCCESS", payload: data });
+    } else {
+      dispatch({
+        type: "FETCH_ARTICLE_FAILURE",
+        payload: data.errors[0],
+      });
+    }
   } catch (error) {
     console.log("Error fetching article:", error);
     dispatch({
