@@ -64,7 +64,7 @@ function ArticleCardListItems() {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="text-gray-600/75 w-96 h-auto"
+              className="text-gray-600/75 w-36 md:w-96 h-auto"
             >
               <path
                 strokeLinecap="round"
@@ -74,7 +74,7 @@ function ArticleCardListItems() {
             </svg>
           </div>
           <div>
-            <p className="text-gray-700 text-2xl font-semibold">
+            <p className="text-gray-700 text-md md:text-2xl font-semibold">
               No News Found!
             </p>
           </div>

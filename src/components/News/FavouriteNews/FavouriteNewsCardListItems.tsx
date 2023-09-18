@@ -59,7 +59,7 @@ function FavouriteNewsCardListItems(props: FavouriteNewsCardListItemsProps) {
             </svg>
           </div>
           <div>
-            <p className="text-gray-700 text-xl font-semibold">
+            <p className="text-gray-700 text-md md:text-xl font-semibold">
               There is no news on the selection made.
             </p>
           </div>

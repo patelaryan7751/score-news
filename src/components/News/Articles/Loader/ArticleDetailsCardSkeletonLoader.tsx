@@ -78,10 +78,6 @@ function ArticleDetailsCardSkeletonLoader() {
                             <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5 mt-6"></div>
                             <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
                             <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5 mt-6"></div>
-                            {/* <img
-                              src={article?.thumbnail}
-                              className="mt-16 aspect-[6/5] w-full rounded-2xl bg-gray-50 object-cover lg:aspect-auto lg:h-[34.5rem]"
-                            /> */}
                             <div className="flex items-center justify-center w-full h-96 bg-gray-300 rounded sm:w-96 dark:bg-gray-700">
                               <svg
                                 className="w-10 h-10 text-gray-200 dark:text-gray-600"
