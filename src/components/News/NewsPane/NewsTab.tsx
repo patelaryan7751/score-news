@@ -55,7 +55,7 @@ function NewsTab() {
               name="current-tab"
               value={tabstate.id}
               onChange={handleChange}
-              className="block w-full rounded-md border-gray-300 py-1 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              className="block w-full rounded-md border-gray-300 py-1 pl-3 pr-10 text-base focus:border-gray-500 focus:outline-none focus:ring-gray-500 sm:text-sm"
             >
               <option value={`yournews`} key="Your News">
                 Your News
@@ -118,7 +118,7 @@ function NewsTab() {
               <input
                 type="date"
                 name="date"
-                className="block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6"
                 value={sortDateState?.sortDate}
                 onChange={(e: any) => {
                   changeDate(sortDispatch, e.target.value);

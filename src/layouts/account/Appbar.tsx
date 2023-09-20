@@ -6,9 +6,10 @@ import Logo from "../../assets/images/logo.png";
 import { Link, useLocation } from "react-router-dom";
 
 const userNavigation = [
-  { name: "Your Preference", href: "#", auth: true },
-  { name: "Sign out", href: "/logout", auth: true },
-  { name: "Sign in", href: "/logout", auth: false },
+  // { name: "Your Preference", href: "#", auth: true },
+  // { name: "Sign out", href: "/logout", auth: true },
+  { name: "Sign in", href: "/login", auth: false },
+  { name: "Sign up", href: "/signup", auth: false },
 ];
 
 const classNames = (...classes: string[]): string =>
