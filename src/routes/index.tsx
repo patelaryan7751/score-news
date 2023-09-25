@@ -1,38 +1,44 @@
 import { createBrowserRouter } from "react-router-dom";
 import Home from "../pages/Home";
 import React from "react";
-import Login from "../pages/Signin";
 import SignUp from "../pages/Signup";
 import AccountLayout from "../layouts/account";
 import NotFound from "../pages/NotFound";
 import ArticleDetails from "../components/News/Articles/ArticleDetails";
-
+import SignIn from "../pages/Signin";
+import HomePage from "../pages/Home/HomePage";
 const router = createBrowserRouter([
   {
     element: <Home />,
     children: [
       {
         path: "/",
-        element: <></>,
+        element: <HomePage />,
+      },
+      {
+        path: "/signin",
+        element: <SignIn />,
+      },
+      {
+        path: "/signup",
+        element: <SignUp />,
       },
       {
         path: "/sports/:id",
-        element: <></>,
+        element: <HomePage />,
       },
       {
         path: "/articleDetails/:id",
-        element: <ArticleDetails />,
+        element: (
+          <>
+            <ArticleDetails />
+            <HomePage />
+          </>
+        ),
       },
     ],
   },
-  {
-    path: "/signin",
-    element: <Login />,
-  },
-  {
-    path: "/signup",
-    element: <SignUp />,
-  },
+
   // Protected Routes
   {
     path: "account",

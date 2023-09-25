@@ -8,7 +8,7 @@ import { Link, useLocation } from "react-router-dom";
 const userNavigation = [
   // { name: "Your Preference", href: "#", auth: true },
   // { name: "Sign out", href: "/logout", auth: true },
-  { name: "Sign in", href: "/login", auth: false },
+  { name: "Sign in", href: "/signin", auth: false },
   { name: "Sign up", href: "/signup", auth: false },
 ];
 
