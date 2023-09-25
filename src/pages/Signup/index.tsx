@@ -1,7 +1,46 @@
 import React from "react";
 import Logo from "../../assets/images/logo.png";
-
+import { useForm, SubmitHandler } from "react-hook-form";
+import { API_ENDPOINT } from "../../config/constants";
+import { useNavigate } from "react-router-dom";
+type Inputs = {
+  name: string;
+  email: string;
+  password: string;
+};
 function SignUp() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>();
+  const navigate = useNavigate();
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    const { name, email, password } = data;
+    try {
+      const response = await fetch(`${API_ENDPOINT}/users`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          password: password,
+        }),
+      });
+
+      if (!response.ok) {
+        console.log("sign up failed");
+      }
+      console.log("Sign-up successful");
+      const responseData = await response.json();
+      console.log(responseData);
+      localStorage.setItem("authToken", responseData.auth_token);
+      localStorage.setItem("userData", JSON.stringify(responseData.user));
+      navigate("/account");
+    } catch (error) {
+      console.error("Sign-up failed:", error);
+    }
+  };
   return (
     <div className="px-6 pt-12 lg:px-8 h-screen">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -12,7 +51,7 @@ function SignUp() {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" action="#" method="POST">
+        <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
           <div>
             <label
               htmlFor="name"
@@ -26,9 +65,12 @@ function SignUp() {
                 name="name"
                 type="text"
                 autoComplete="name"
-                required
+                {...register("name", { required: true })}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6"
               />
+              <p className="text-md text-red-500">
+                {errors.name && <span>This field is required</span>}
+              </p>
             </div>
           </div>
           <div>
@@ -44,9 +86,14 @@ function SignUp() {
                 name="email"
                 type="email"
                 autoComplete="email"
-                required
+                {...register("email", { required: true })}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6"
               />
+              <p className="text-md text-red-500">
+                {errors.email && (
+                  <span>This field is required with a valid email</span>
+                )}
+              </p>
             </div>
           </div>
 
@@ -65,9 +112,12 @@ function SignUp() {
                 name="password"
                 type="password"
                 autoComplete="current-password"
-                required
+                {...register("password", { required: true })}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6"
               />
+              <p className="text-md text-red-500">
+                {errors.password && <span>This field is required</span>}
+              </p>
             </div>
           </div>
 

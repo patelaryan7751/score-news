@@ -1,14 +1,17 @@
 import * as React from "react";
 import Appbar from "./Appbar";
+import { Outlet } from "react-router-dom";
+import Footer from "../../components/Footer";
 
 const AccountLayout = () => {
   return (
     <>
       <Appbar />
       <main>
-        <div className="mx-auto py-6 sm:px-6 lg:px-8">
-          {/*Route specific contents will come here*/}
+        <div className="mx-auto py-4 px-4 overflow-hidden ">
+          <Outlet />
         </div>
+        <Footer />
       </main>
     </>
   );

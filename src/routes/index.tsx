@@ -7,6 +7,8 @@ import NotFound from "../pages/NotFound";
 import ArticleDetails from "../components/News/Articles/ArticleDetails";
 import SignIn from "../pages/Signin";
 import HomePage from "../pages/Home/HomePage";
+import ProtectedRoute from "./ProtectedRoute";
+import Signout from "../pages/Signout";
 const router = createBrowserRouter([
   {
     element: <Home />,
@@ -41,16 +43,42 @@ const router = createBrowserRouter([
 
   // Protected Routes
   {
-    path: "account",
-    element: <AccountLayout />,
+    element: (
+      <ProtectedRoute>
+        <AccountLayout />
+      </ProtectedRoute>
+    ),
+    children: [
+      {
+        path: "/account",
+        element: <HomePage />,
+      },
+      {
+        path: "/account/sports/:id",
+        element: <HomePage />,
+      },
+      {
+        path: "/account/articleDetails/:id",
+        element: (
+          <>
+            <ArticleDetails />
+            <HomePage />
+          </>
+        ),
+      },
+    ],
+  },
+  {
+    path: "/signout",
+    element: <Signout />,
   },
   {
     path: "/notfound",
     element: <NotFound />,
   },
   {
-    path: "*", // This wildcard will match any other URL
-    element: <NotFound />, // Render your NotFound component here
+    path: "*",
+    element: <NotFound />,
   },
 ]);
 export default router;

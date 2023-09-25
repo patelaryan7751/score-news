@@ -14,7 +14,14 @@ function ArticleCard(props: ArticleCardProps) {
   const time = dateObject.toISOString().split("T")[1].split(".")[0];
   let stateTab: any = useTabState();
   return (
-    <Link to={`/articleDetails/${id}?tab=${stateTab?.id}`} key={id}>
+    <Link
+      to={`${
+        location.pathname.includes("account")
+          ? `/account/articleDetails/${id}?tab=${stateTab?.id}`
+          : `/articleDetails/${id}?tab=${stateTab?.id}`
+      }`}
+      key={id}
+    >
       <div className="sm:flex m-4 bg-white p-3 rounded-md ">
         <div className="mb-4 mx-auto flex-shrink-0 sm:mb-0 sm:mr-4 order-last">
           <div className="flex-shrink-0">

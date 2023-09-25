@@ -27,9 +27,16 @@ function NewsTab() {
   const handleChange = (event: any) => {
     changeTab(dispatchTabs, { id: event.target.value });
     if (event.target.value === "yournews") {
-      navigate("/");
+      navigate(`${location.pathname.includes("account") ? "/account" : "/"}`);
     } else {
       navigate(`/sports/${Number(event.target.value)}`);
+      navigate(
+        `${
+          location.pathname.includes("account")
+            ? `/account/sports/${Number(event.target.value)}`
+            : `/sports/${Number(event.target.value)}`
+        }`
+      );
     }
   };
   const handleTab = (id: string | undefined) => {
@@ -71,7 +78,9 @@ function NewsTab() {
             <nav className="-mb-px flex space-x-8">
               <Link
                 key={"Your News"}
-                to={`/`}
+                to={`${
+                  location.pathname.includes("account") ? "/account" : "/"
+                }`}
                 onClick={() => {
                   handleTab("yournews");
                 }}
@@ -89,7 +98,11 @@ function NewsTab() {
               {sports.map((sport: Sport) => (
                 <Link
                   key={sport.name}
-                  to={`/sports/${sport?.id}`}
+                  to={`${
+                    location.pathname.includes("account")
+                      ? `/account/sports/${sport?.id}`
+                      : `/sports/${sport?.id}`
+                  }`}
                   onClick={() => {
                     handleTab(String(sport?.id));
                   }}
