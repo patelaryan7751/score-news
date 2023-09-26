@@ -16,9 +16,19 @@ const Appbar = () => {
   let state: any = useUserState();
   const dispatchUsers = useUserDispatch();
   console.log(state, "lio67");
-  const { isAuthenticated } = state;
+  const { isAuthenticated, userDetails } = state;
 
   const userNavigation = [
+    {
+      name: "Home",
+      href: "/account",
+      auth: isAuthenticated,
+    },
+    {
+      name: "Your Profile",
+      href: "/account/profile",
+      auth: isAuthenticated,
+    },
     {
       name: "Your Preference",
       href: "#",
@@ -28,6 +38,11 @@ const Appbar = () => {
       name: "Sign out",
       href: "/signout",
       auth: isAuthenticated,
+    },
+    {
+      name: "Home",
+      href: "/",
+      auth: !isAuthenticated,
     },
     {
       name: "Sign in",
@@ -59,12 +74,20 @@ const Appbar = () => {
                 <div className="ml-4 flex items-center md:ml-6">
                   <Menu as="div" className="relative ml-3">
                     <div>
-                      <Menu.Button className="rounded-full bg-white p-1 text-gray-400 hover:text-blue-600">
-                        <UserCircleIcon
-                          className="h-6 w-6"
-                          aria-hidden="true"
-                        />
-                      </Menu.Button>
+                      {isAuthenticated ? (
+                        <Menu.Button className="rounded-full bg-gray-500 p-1 w-8 h-8 text-gray-400 hover:text-blue-600">
+                          <div className="bg-gray-500 text-sm font-medium text-white">
+                            {userDetails?.name?.charAt(0)}
+                          </div>
+                        </Menu.Button>
+                      ) : (
+                        <Menu.Button className="rounded-full bg-white p-1 text-gray-400 hover:text-blue-600">
+                          <UserCircleIcon
+                            className="h-6 w-6"
+                            aria-hidden="true"
+                          />
+                        </Menu.Button>
+                      )}
                     </div>
                     <Transition
                       as={Fragment}

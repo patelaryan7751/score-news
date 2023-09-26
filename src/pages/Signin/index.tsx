@@ -1,7 +1,5 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { API_ENDPOINT } from "../../config/constants";
 import Logo from "../../assets/images/logo.png";
 import { getUserSignedIn } from "../../context/users/action";
 import { useUserDispatch, useUserState } from "../../context/users/context";

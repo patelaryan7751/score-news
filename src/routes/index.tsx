@@ -9,6 +9,7 @@ import SignIn from "../pages/Signin";
 import HomePage from "../pages/Home/HomePage";
 import ProtectedRoute from "./ProtectedRoute";
 import Signout from "../pages/Signout";
+import Profile from "../pages/Profile";
 const router = createBrowserRouter([
   {
     element: <Home />,
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
       {
         path: "/account",
         element: <HomePage />,
+      },
+      {
+        path: "/account/profile",
+        element: <Profile />,
       },
       {
         path: "/account/sports/:id",
