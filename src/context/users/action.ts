@@ -1,0 +1,120 @@
+import { API_ENDPOINT } from "../../config/constants";
+import { initialState } from "./reducer";
+import { UserDetails } from "./types";
+
+export const createUser = async (dispatch: any, data: UserDetails) => {
+  try {
+    dispatch({ type: "SIGNUP_REQUEST" });
+    const { name, email, password } = data;
+    const response = await fetch(`${API_ENDPOINT}/users`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        password: password,
+      }),
+    });
+    console.log(response);
+    const responseData = await response.json();
+    if (response.ok) {
+      dispatch({
+        type: "SIGNUP_SUCCESS",
+        payload: {
+          user: responseData.user,
+          auth_token: responseData.auth_token,
+        },
+      });
+      console.log("Sign-up successful");
+      console.log(responseData);
+      localStorage.setItem("authToken", responseData.auth_token);
+      localStorage.setItem("userData", JSON.stringify(responseData.user));
+      location.href = "/account";
+    } else {
+      dispatch({
+        type: "SIGNUP_FAILURE",
+        payload: responseData.errors[0],
+      });
+    }
+  } catch (error) {
+    console.log("Sign-up failed:", error);
+    dispatch({
+      type: "SIGNUP_FAILURE",
+      payload: "Unable to sign up!",
+    });
+  }
+};
+
+export const getUserSignedIn = async (
+  dispatch: any,
+  email: string,
+  password: string
+) => {
+  try {
+    dispatch({ type: "SIGNIN_REQUEST" });
+    const response = await fetch(`${API_ENDPOINT}/users/sign_in`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    });
+    console.log(response);
+    const responseData = await response.json();
+    if (response.ok) {
+      dispatch({
+        type: "SIGNIN_SUCCESS",
+        payload: {
+          user: responseData.user,
+          auth_token: responseData.auth_token,
+        },
+      });
+      console.log("Sign-in successful");
+      console.log(responseData);
+      localStorage.setItem("authToken", responseData.auth_token);
+      localStorage.setItem("userData", JSON.stringify(responseData.user));
+      location.href = "/account";
+    } else {
+      dispatch({
+        type: "SIGNIN_FAILURE",
+        payload: responseData.errors[0],
+      });
+    }
+  } catch (error) {
+    console.log("Sign-in failed:", error);
+    dispatch({
+      type: "SIGNIN_FAILURE",
+      payload: "Unable to sign in!",
+    });
+  }
+};
+
+export const syncUserWithContextState = async (dispatch: any) => {
+  try {
+    let auth_token = localStorage.getItem("authToken");
+    let userDetails = JSON.parse(localStorage.getItem("userData"));
+    console.log(auth_token, userDetails, "opiy");
+    if (!!auth_token && !!userDetails) {
+      dispatch({
+        type: "SYNC_USER_STATE",
+        payload: {
+          user: userDetails,
+          auth_token: auth_token,
+          isAuthenticated: true,
+        },
+      });
+    } else {
+      dispatch({
+        type: "SYNC_USER_STATE",
+        payload: {
+          user: initialState.userDetails,
+          auth_token: "",
+          isAuthenticated: false,
+        },
+      });
+    }
+  } catch (error) {
+    console.log("Sign-up failed:", error);
+  }
+};

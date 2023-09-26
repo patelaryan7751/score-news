@@ -1,36 +1,46 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 import Logo from "../../assets/images/logo.png";
-
-const userNavigation = [
-  {
-    name: "Your Preference",
-    href: "#",
-    auth: location.pathname.includes("account"),
-  },
-  {
-    name: "Sign out",
-    href: "/signout",
-    auth: location.pathname.includes("account"),
-  },
-  {
-    name: "Sign in",
-    href: "/signin",
-    auth: !location.pathname.includes("account"),
-  },
-  {
-    name: "Sign up",
-    href: "/signup",
-    auth: !location.pathname.includes("account"),
-  },
-];
+import { useUserDispatch, useUserState } from "../../context/users/context";
+import { syncUserWithContextState } from "../../context/users/action";
 
 const classNames = (...classes: string[]): string =>
   classes.filter(Boolean).join(" ");
 
 const Appbar = () => {
+  useEffect(() => {
+    syncUserWithContextState(dispatchUsers);
+  }, []);
+  let state: any = useUserState();
+  const dispatchUsers = useUserDispatch();
+  console.log(state, "lio67");
+  const { isAuthenticated } = state;
+
+  const userNavigation = [
+    {
+      name: "Your Preference",
+      href: "#",
+      auth: isAuthenticated,
+    },
+    {
+      name: "Sign out",
+      href: "/signout",
+      auth: isAuthenticated,
+    },
+    {
+      name: "Sign in",
+      href: "/signin",
+      auth: !isAuthenticated,
+    },
+    {
+      name: "Sign up",
+      href: "/signup",
+      auth: !isAuthenticated,
+    },
+  ];
+
   return (
     <>
       <Disclosure as="nav" className="border-b border-slate-200">

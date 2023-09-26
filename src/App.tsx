@@ -7,22 +7,25 @@ import { TeamsProvider } from "./context/teams/context";
 import { TabProvider } from "./context/tabs/context";
 import { ArticlesProvider } from "./context/articles/context";
 import { SortDateProvider } from "./context/sortDate/context";
+import { UserProvider } from "./context/users/context";
 function App() {
   return (
     <>
-      <SortDateProvider>
-        <TabProvider>
-          <ArticlesProvider>
-            <TeamsProvider>
-              <AllSportsProvider>
-                <MatchesProvider>
-                  <RouterProvider router={router} />
-                </MatchesProvider>
-              </AllSportsProvider>
-            </TeamsProvider>
-          </ArticlesProvider>
-        </TabProvider>
-      </SortDateProvider>
+      <UserProvider>
+        <SortDateProvider>
+          <TabProvider>
+            <ArticlesProvider>
+              <TeamsProvider>
+                <AllSportsProvider>
+                  <MatchesProvider>
+                    <RouterProvider router={router} />
+                  </MatchesProvider>
+                </AllSportsProvider>
+              </TeamsProvider>
+            </ArticlesProvider>
+          </TabProvider>
+        </SortDateProvider>
+      </UserProvider>
     </>
   );
 }

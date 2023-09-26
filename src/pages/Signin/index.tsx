@@ -3,6 +3,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { API_ENDPOINT } from "../../config/constants";
 import Logo from "../../assets/images/logo.png";
+import { getUserSignedIn } from "../../context/users/action";
+import { useUserDispatch, useUserState } from "../../context/users/context";
 
 function SignIn() {
   type Inputs = {
@@ -14,31 +16,13 @@ function SignIn() {
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
-  const navigate = useNavigate();
+  let state: any = useUserState();
+  const dispatchUsers = useUserDispatch();
+  const { isLoading, isError, errorMessage } = state;
+
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const { email, password } = data;
-    try {
-      const response = await fetch(`${API_ENDPOINT}/users/sign_in`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      });
-
-      if (!response.ok) {
-        console.log("sign in failed");
-      }
-      console.log("Sign-in successful");
-      const responseData = await response.json();
-      console.log(responseData);
-      localStorage.setItem("authToken", responseData.auth_token);
-      localStorage.setItem("userData", JSON.stringify(responseData.user));
-      navigate("/account");
-    } catch (error) {
-      console.error("Sign-in failed:", error);
-    }
+    getUserSignedIn(dispatchUsers, email, password);
   };
   return (
     <div className="px-6 pt-12 lg:px-8 h-screen">
@@ -99,13 +83,20 @@ function SignIn() {
           </div>
 
           <div>
-            <button
-              type="submit"
-              className="flex w-full justify-center rounded-md bg-gray-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
-            >
-              Sign In
-            </button>
+            {isLoading ? (
+              <>Loading...</>
+            ) : (
+              <button
+                type="submit"
+                className="flex w-full justify-center rounded-md bg-gray-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
+              >
+                Sign In
+              </button>
+            )}
           </div>
+          <p className="text-md text-red-500 justify-center">
+            {isError ? <span>{errorMessage}</span> : ""}
+          </p>
         </form>
 
         <p className="mt-10 text-center text-sm text-gray-500">

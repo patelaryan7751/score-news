@@ -1,45 +1,20 @@
 import React from "react";
 import Logo from "../../assets/images/logo.png";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { API_ENDPOINT } from "../../config/constants";
-import { useNavigate } from "react-router-dom";
-type Inputs = {
-  name: string;
-  email: string;
-  password: string;
-};
+import { createUser } from "../../context/users/action";
+import { useUserDispatch, useUserState } from "../../context/users/context";
+import { UserDetails } from "../../context/users/types";
 function SignUp() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Inputs>();
-  const navigate = useNavigate();
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    const { name, email, password } = data;
-    try {
-      const response = await fetch(`${API_ENDPOINT}/users`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: name,
-          email: email,
-          password: password,
-        }),
-      });
-
-      if (!response.ok) {
-        console.log("sign up failed");
-      }
-      console.log("Sign-up successful");
-      const responseData = await response.json();
-      console.log(responseData);
-      localStorage.setItem("authToken", responseData.auth_token);
-      localStorage.setItem("userData", JSON.stringify(responseData.user));
-      navigate("/account");
-    } catch (error) {
-      console.error("Sign-up failed:", error);
-    }
+  } = useForm<UserDetails>();
+  let state: any = useUserState();
+  const dispatchUsers = useUserDispatch();
+  const { isLoading, isError, errorMessage } = state;
+  const onSubmit: SubmitHandler<UserDetails> = async (data) => {
+    createUser(dispatchUsers, data);
   };
   return (
     <div className="px-6 pt-12 lg:px-8 h-screen">
@@ -122,13 +97,20 @@ function SignUp() {
           </div>
 
           <div>
-            <button
-              type="submit"
-              className="flex w-full justify-center rounded-md bg-gray-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
-            >
-              Sign Up
-            </button>
+            {isLoading ? (
+              <>Loading...</>
+            ) : (
+              <button
+                type="submit"
+                className="flex w-full justify-center rounded-md bg-gray-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
+              >
+                Sign Up
+              </button>
+            )}
           </div>
+          <p className="text-md text-red-500 justify-center">
+            {isError ? <span>{errorMessage}</span> : ""}
+          </p>
         </form>
 
         <p className="mt-10 text-center text-sm text-gray-500">
