@@ -5,6 +5,7 @@ export interface Sport {
 
 export interface AllSportsState {
   sports: Sport[];
+  AllSports: Sport[];
   isLoading: boolean;
   isError: boolean;
   errorMessage: string;
@@ -13,6 +14,9 @@ export interface AllSportsState {
 export type AllSportsActions =
   | { type: "FETCH_SPORTS_REQUEST" }
   | { type: "FETCH_SPORTS_SUCCESS"; payload: Sport[] }
-  | { type: "FETCH_SPORTS_FAILURE"; payload: string };
+  | { type: "FETCH_SPORTS_FAILURE"; payload: string }
+  | { type: "FETCH_ALL_SPORTS_REQUEST" }
+  | { type: "FETCH_ALL_SPORTS_SUCCESS"; payload: Sport[] }
+  | { type: "FETCH_ALL_SPORTS_FAILURE"; payload: string };
 
 export type AllSportsDispatch = React.Dispatch<AllSportsActions>;

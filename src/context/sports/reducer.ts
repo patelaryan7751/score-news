@@ -2,6 +2,7 @@ import { AllSportsActions, AllSportsState } from "./types";
 
 export const initialState: AllSportsState = {
   sports: [],
+  AllSports: [],
   isLoading: false,
   isError: false,
   errorMessage: "",
@@ -24,6 +25,24 @@ export const reducer = (
         sports: action.payload,
       };
     case "FETCH_SPORTS_FAILURE":
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        errorMessage: action.payload,
+      };
+    case "FETCH_ALL_SPORTS_REQUEST":
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case "FETCH_ALL_SPORTS_SUCCESS":
+      return {
+        ...state,
+        isLoading: false,
+        AllSports: action.payload,
+      };
+    case "FETCH_ALL_SPORTS_FAILURE":
       return {
         ...state,
         isLoading: false,

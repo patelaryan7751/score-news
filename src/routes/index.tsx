@@ -10,6 +10,7 @@ import HomePage from "../pages/Home/HomePage";
 import ProtectedRoute from "./ProtectedRoute";
 import Signout from "../pages/Signout";
 import Profile from "../pages/Profile";
+import Preference from "../pages/Preference";
 const router = createBrowserRouter([
   {
     element: <Home />,
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
       {
         path: "/account/profile",
         element: <Profile />,
+      },
+      {
+        path: "/account/preference",
+        element: <Preference />,
       },
       {
         path: "/account/sports/:id",

@@ -31,7 +31,7 @@ const Appbar = () => {
     },
     {
       name: "Your Preference",
-      href: "#",
+      href: "/account/preference",
       auth: isAuthenticated,
     },
     {
