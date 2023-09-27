@@ -19,6 +19,7 @@ export const reducer = (
         isLoading: true,
       };
     case "FETCH_TEAMS_SUCCESS":
+      console.log(action.payload, "lkiteam");
       return {
         ...state,
         isLoading: false,

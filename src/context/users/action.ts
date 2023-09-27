@@ -1,4 +1,6 @@
 import { API_ENDPOINT } from "../../config/constants";
+import { Team } from "../matches/types";
+import { Sport } from "../sports/types";
 import { initialState } from "./reducer";
 import { UserDetails } from "./types";
 
@@ -116,5 +118,80 @@ export const syncUserWithContextState = async (dispatch: any) => {
     }
   } catch (error) {
     console.log("Sign-up failed:", error);
+  }
+};
+
+export const addUserPreference = async (
+  dispatch: any,
+  sports: Sport[],
+  teams: Team[]
+) => {
+  const token = localStorage.getItem("authToken") ?? "";
+  try {
+    dispatch({ type: "PREFERENCE_REQUEST" });
+    const response = await fetch(`${API_ENDPOINT}/user/preferences`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ preferences: { sports: sports, teams: teams } }),
+    });
+    console.log(response, "pref1");
+    const responseData = await response.json();
+    if (response.ok) {
+      console.log(responseData);
+      dispatch({
+        type: "PREFERENCE_ADD_SUCCESS",
+        payload: {
+          preferences: responseData.preferences,
+        },
+      });
+    } else {
+      dispatch({
+        type: "PREFERENCE_ADD_FAILURE",
+        payload: responseData.errors[0],
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: "PREFERENCE_ADD_FAILURE",
+      payload: "Unable to add preference",
+    });
+  }
+};
+
+export const getUserPreference = async (dispatch: any) => {
+  const token = localStorage.getItem("authToken") ?? "";
+  try {
+    dispatch({ type: "PREFERENCE_REQUEST" });
+    const response = await fetch(`${API_ENDPOINT}/user/preferences`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(response, "prefGET1");
+    const responseData = await response.json();
+    if (response.ok) {
+      console.log(responseData);
+      dispatch({
+        type: "PREFERENCE_SUCCESS",
+        payload: {
+          preferences: responseData.preferences,
+        },
+      });
+    } else {
+      dispatch({
+        type: "PREFERENCE_FAILURE",
+        payload: responseData.errors[0],
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: "PREFERENCE_FAILURE",
+      payload: "Unable to get preference",
+    });
   }
 };

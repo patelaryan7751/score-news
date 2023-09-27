@@ -5,7 +5,10 @@ import {
   useAllSportsDispatch,
   useAllSportsState,
 } from "../../context/sports/context";
-import { fetchAllSports } from "../../context/sports/action";
+import {
+  fetchAllSports,
+  fetchAllSportsForPreferenceSelection,
+} from "../../context/sports/action";
 import { fetchTeams } from "../../context/teams/action";
 import { useTeamsDispatch } from "../../context/teams/context";
 import { useTabDispatch } from "../../context/tabs/context";
@@ -30,6 +33,7 @@ function AllNews() {
   let sportsState: any = useAllSportsState();
   useEffect(() => {
     fetchAllSports(dispatchSports);
+    fetchAllSportsForPreferenceSelection(dispatchSports);
     fetchTeams(dispatchTeams);
     if (!route.includes("articleDetails")) {
       changeTab(dispatchTabs, { id: id === undefined ? "yournews" : id });
@@ -44,8 +48,8 @@ function AllNews() {
         navigate("/notfound");
       }
       if (
-        Number(id) > sportsState?.sports?.length &&
-        sportsState?.sports?.length > 0
+        Number(id) > sportsState?.AllSports?.length &&
+        sportsState?.AllSports?.length > 0
       ) {
         navigate("/notfound");
       }

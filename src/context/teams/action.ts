@@ -1,5 +1,11 @@
 import { API_ENDPOINT } from "../../config/constants";
+import {
+  generatePreferenceTeamArray,
+  getSportsArrayFromPreferences,
+  getTeamsArrayFromPreferences,
+} from "../../utils/commonUtils";
 export const fetchTeams = async (dispatch: any) => {
+  const isAuth = !!localStorage.getItem("authToken");
   try {
     dispatch({ type: "FETCH_TEAMS_REQUEST" });
     const response = await fetch(`${API_ENDPOINT}/teams`, {
@@ -9,7 +15,27 @@ export const fetchTeams = async (dispatch: any) => {
       },
     });
     const data = await response.json();
-    dispatch({ type: "FETCH_TEAMS_SUCCESS", payload: data });
+    console.log(data, "liokui68");
+    if (isAuth && getSportsArrayFromPreferences().length > 0) {
+      console.log(
+        generatePreferenceTeamArray(
+          getTeamsArrayFromPreferences(),
+          getSportsArrayFromPreferences(),
+          data
+        ),
+        "teamarray"
+      );
+      dispatch({
+        type: "FETCH_TEAMS_SUCCESS",
+        payload: generatePreferenceTeamArray(
+          getTeamsArrayFromPreferences(),
+          getSportsArrayFromPreferences(),
+          data
+        ),
+      });
+    } else {
+      dispatch({ type: "FETCH_TEAMS_SUCCESS", payload: data });
+    }
   } catch (error) {
     console.log("Error fetching teams:", error);
     dispatch({

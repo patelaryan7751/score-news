@@ -1,3 +1,6 @@
+import { Team } from "../matches/types";
+import { Sport } from "../sports/types";
+
 export interface UserDetails {
   email: string;
   id: number;
@@ -29,6 +32,18 @@ export type UserStateActions =
     }
   | { type: "SIGNIN_FAILURE"; payload: string }
   | { type: "SIGNOUT" }
+  | { type: "PREFERENCE_REQUEST" }
+  | {
+      type: "PREFERENCE_SUCCESS";
+      payload: { preferences: { sports: Sport[]; teams: Team[] } };
+    }
+  | { type: "PREFERENCE_FAILURE"; payload: string }
+  | { type: "PREFERENCE_ADD_REQUEST" }
+  | {
+      type: "PREFERENCE_ADD_SUCCESS";
+      payload: { preferences: { sports: Sport[]; teams: Team[] } };
+    }
+  | { type: "PREFERENCE_ADD_FAILURE"; payload: string }
   | {
       type: "SYNC_USER_STATE";
       payload: {

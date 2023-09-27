@@ -80,6 +80,68 @@ export const reducer = (
         isError: false,
         isAuthenticated: action.payload.isAuthenticated,
       };
+    case "PREFERENCE_REQUEST":
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+      };
+    case "PREFERENCE_SUCCESS":
+      localStorage.setItem(
+        "userData",
+        JSON.stringify({
+          ...state.userDetails,
+          preferences: action.payload.preferences,
+        })
+      );
+      return {
+        ...state,
+        isLoading: false,
+        userDetails: {
+          ...state.userDetails,
+          preferences: action.payload.preferences,
+        },
+        isError: false,
+      };
+    case "PREFERENCE_FAILURE":
+      console.log("kio");
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        errorMessage: action.payload,
+      };
+    case "PREFERENCE_ADD_REQUEST":
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+      };
+    case "PREFERENCE_ADD_SUCCESS":
+      localStorage.setItem(
+        "userData",
+        JSON.stringify({
+          ...state.userDetails,
+          preferences: action.payload.preferences,
+        })
+      );
+      return {
+        ...state,
+        isLoading: false,
+        userDetails: {
+          ...state.userDetails,
+          preferences: action.payload.preferences,
+        },
+        isError: false,
+      };
+    case "PREFERENCE_ADD_FAILURE":
+      console.log("kio");
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        errorMessage: action.payload,
+      };
     default:
       return state;
   }
