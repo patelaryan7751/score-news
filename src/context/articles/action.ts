@@ -1,5 +1,11 @@
 import { API_ENDPOINT } from "../../config/constants";
+import {
+  generatePreferenceArticleArray,
+  getSportsArrayFromPreferences,
+  getTeamsArrayFromPreferences,
+} from "../../utils/commonUtils";
 export const fetchArticles = async (dispatch: any) => {
+  const isAuth = !!localStorage.getItem("authToken");
   try {
     dispatch({ type: "FETCH_ALL_ARTICLES_REQUEST" });
     const response = await fetch(`${API_ENDPOINT}/articles`, {
@@ -10,7 +16,18 @@ export const fetchArticles = async (dispatch: any) => {
     });
     const data = await response.json();
     console.log(data, "ki");
-    dispatch({ type: "FETCH_ALL_ARTICLES_SUCCESS", payload: data });
+    if (isAuth && getSportsArrayFromPreferences().length > 0) {
+      dispatch({
+        type: "FETCH_ALL_ARTICLES_SUCCESS",
+        payload: generatePreferenceArticleArray(
+          getSportsArrayFromPreferences(),
+          getTeamsArrayFromPreferences(),
+          data
+        ),
+      });
+    } else {
+      dispatch({ type: "FETCH_ALL_ARTICLES_SUCCESS", payload: data });
+    }
   } catch (error) {
     console.log("Error fetching articles:", error);
     dispatch({
