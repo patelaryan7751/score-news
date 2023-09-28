@@ -1,5 +1,5 @@
 import { Article } from "../context/articles/types";
-import { Team } from "../context/matches/types";
+import { Match, Team } from "../context/matches/types";
 import { Sport } from "../context/sports/types";
 
 export const getSportsArrayFromPreferences = () => {
@@ -74,6 +74,88 @@ export const generatePreferenceArticleArray = (
     );
 
   return filterPreferenceTeamsFromArticleDataArray;
+};
+
+export const generatePrefernceMatchArray = (
+  preferenceSportArray: Sport[],
+  preferenceTeamArray: Team[],
+  matchData: Match[]
+) => {
+  let arrayOfSportsWithEmptyTeams = preferenceSportArray.filter(
+    (sport: Sport) => isSelectedSportsTeamEmpty(sport, preferenceTeamArray)
+  );
+  let filteredPreferenceSportsFromMatchDataArray = matchData.filter(
+    (match: Match) =>
+      isMatchPresentInPreferenceSports(match, preferenceSportArray)
+  );
+
+  let filterPreferenceTeamsFromMatchDataArray =
+    filteredPreferenceSportsFromMatchDataArray.filter(
+      (match: Match) =>
+        isMatchSportConatinsEmptyTeams(
+          match.sportName,
+          arrayOfSportsWithEmptyTeams
+        ) || isMatchPresentInPreferenceTeams(match, preferenceTeamArray)
+    );
+  return filterPreferenceTeamsFromMatchDataArray;
+};
+
+const isMatchSportConatinsEmptyTeams = (
+  matchSportName: string,
+  arrayOfSportsWithEmptyTeams: Sport[]
+) => {
+  let getSportsArray = arrayOfSportsWithEmptyTeams.filter(
+    (sport: Sport) => sport.name === matchSportName
+  );
+  if (getSportsArray.length === 1) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+const isMatchPresentInPreferenceTeams = (
+  match: Match,
+  preferenceTeamArray: Sport[]
+) => {
+  let getTeamArrayOfPresentMatch = preferenceTeamArray.filter((team: Team) =>
+    match.teams.length !== 0
+      ? isMatchTeamArrayContainsPreferenceTeam(match.teams, team)
+      : true
+  );
+  if (getTeamArrayOfPresentMatch.length >= 1) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+const isMatchPresentInPreferenceSports = (
+  match: Match,
+  preferenceSportArray: Sport[]
+) => {
+  let getSportArrayOfPresentMatch = preferenceSportArray.filter(
+    (sport: Sport) => match.sportName === sport.name
+  );
+  if (getSportArrayOfPresentMatch.length === 1) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+const isMatchTeamArrayContainsPreferenceTeam = (
+  matchTeams: Team[],
+  currTeam: Team
+) => {
+  const getTeamArray = matchTeams.filter(
+    (team: Team) => Number(team.id) === Number(currTeam.id)
+  );
+  if (getTeamArray.length >= 1) {
+    return true;
+  } else {
+    return false;
+  }
 };
 
 const isArticleSportConatinsEmptyTeams = (
