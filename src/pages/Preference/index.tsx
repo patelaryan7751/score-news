@@ -115,7 +115,7 @@ export default function Preference() {
   }, [teamsChecked]);
 
   return (
-    <div className="mx-12 px-12 my-20 h-full">
+    <div className="mx-auto p-10 md:w-[800px] overflow-y-scroll h-screen custom-scrollbar shadow-2xl rounded-md">
       <form>
         <div className="p-4">
           {sportsState?.isLoading ? (
@@ -204,12 +204,18 @@ export default function Preference() {
           )}
         </div>
         <div className="flex flex-row-reverse">
-          <button
-            onClick={handleSubmit}
-            className="m-4 text-white p-2 bg-gray-600 text-center rounded-md hover:bg-gray-500"
-          >
-            Save Preference
-          </button>
+          {userState.isLoading ? (
+            <>
+              <p className="text-md">Updating...</p>
+            </>
+          ) : (
+            <button
+              onClick={handleSubmit}
+              className="m-4 text-white p-2 bg-gray-600 text-center rounded-md hover:bg-gray-500"
+            >
+              Save Preference
+            </button>
+          )}
         </div>
       </form>
     </div>

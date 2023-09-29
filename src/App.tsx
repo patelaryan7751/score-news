@@ -8,6 +8,8 @@ import { TabProvider } from "./context/tabs/context";
 import { ArticlesProvider } from "./context/articles/context";
 import { SortDateProvider } from "./context/sortDate/context";
 import { UserProvider } from "./context/users/context";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 function App() {
   return (
     <>
@@ -19,6 +21,7 @@ function App() {
                 <AllSportsProvider>
                   <MatchesProvider>
                     <RouterProvider router={router} />
+                    <ToastContainer />
                   </MatchesProvider>
                 </AllSportsProvider>
               </TeamsProvider>

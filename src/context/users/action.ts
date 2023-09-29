@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { API_ENDPOINT } from "../../config/constants";
 import { Team } from "../matches/types";
 import { Sport } from "../sports/types";
@@ -146,6 +147,16 @@ export const addUserPreference = async (
         payload: {
           preferences: responseData.preferences,
         },
+      });
+      toast.success("Preference Updated!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
       });
     } else {
       dispatch({

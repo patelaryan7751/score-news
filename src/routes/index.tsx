@@ -11,9 +11,14 @@ import ProtectedRoute from "./ProtectedRoute";
 import Signout from "../pages/Signout";
 import Profile from "../pages/Profile";
 import Preference from "../pages/Preference";
+import UnauthenticatedProtectedRoute from "./UnauthenticatedProtectedRoute";
 const router = createBrowserRouter([
   {
-    element: <Home />,
+    element: (
+      <UnauthenticatedProtectedRoute>
+        <Home />
+      </UnauthenticatedProtectedRoute>
+    ),
     children: [
       {
         path: "/",
