@@ -34,7 +34,6 @@ export default function Preference() {
   const [sportsChecked, setSportsChecked] = useState<Sport[]>([]);
   const [teamsChecked, setTeamsChecked] = useState<Team[]>([]);
   useEffect(() => {
-    console.log(userState, "lkiop");
     setSportsChecked(initialSportsCheckedArray);
     setTeamsChecked(initialTeamsCheckedArray);
   }, []);
@@ -107,21 +106,15 @@ export default function Preference() {
     e.preventDefault();
     addUserPreference(userDispatch, sportsChecked, teamsChecked);
   };
-  useEffect(() => {
-    console.log(sportsChecked, "ppio");
-  }, [sportsChecked]);
-  useEffect(() => {
-    console.log(teamsChecked, "ppioteam");
-  }, [teamsChecked]);
 
   return (
-    <div className="mx-auto p-10 md:w-[800px] overflow-y-scroll h-screen custom-scrollbar shadow-2xl rounded-md">
+    <div className="mx-auto p-10 md:w-[800px] shadow-2xl rounded-md">
       <form>
         <div className="p-4">
           {sportsState?.isLoading ? (
             <>Loading...</>
           ) : (
-            <fieldset>
+            <fieldset className="p-2">
               <legend className="text-2xl font-semibold leading-6 text-gray-900">
                 Select your favourite sports:
               </legend>
@@ -160,7 +153,7 @@ export default function Preference() {
           {teamsState?.isLoading ? (
             <>Loading...</>
           ) : (
-            <fieldset>
+            <fieldset className="overflow-y-scroll h-[300px] custom-scrollbar p-2">
               <legend className="text-2xl font-semibold leading-6 text-gray-900">
                 Select your favourite teams:
               </legend>

@@ -16,7 +16,6 @@ export const reducer = (
         sort_action: false,
       };
     case "CHANGE_DATE_SORT_ACTION":
-      console.log(state?.sortDate, "Li");
       return {
         ...state,
         sort_action: action.payload,

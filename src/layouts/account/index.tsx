@@ -2,6 +2,7 @@ import * as React from "react";
 import Appbar from "./Appbar";
 import { Outlet } from "react-router-dom";
 import Footer from "../../components/Footer";
+import ArticleDetails from "../../components/News/Articles/ArticleDetails";
 
 const AccountLayout = () => {
   return (
@@ -10,6 +11,7 @@ const AccountLayout = () => {
       <main>
         <div className="mx-auto py-4 px-4 overflow-hidden ">
           <Outlet />
+          <ArticleDetails />
         </div>
         <Footer />
       </main>

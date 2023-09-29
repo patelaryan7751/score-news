@@ -192,17 +192,12 @@ const isArticleTeamArrayContainsPreferenceTeam = (
   articleTeams: Team[],
   currTeam: Team
 ) => {
-  console.log(articleTeams.length === 0, articleTeams.length, "got it");
   const getTeamArray = articleTeams.filter(
     (team: Team) => Number(team.id) === Number(currTeam.id)
   );
   if (getTeamArray.length >= 1) {
-    console.log(articleTeams, "s111");
     return true;
   } else {
-    console.log(getTeamArray, "jks12");
-    console.log(articleTeams, "s112");
-    console.log(currTeam, "lio21");
     return false;
   }
 };

@@ -20,7 +20,6 @@ export const fetchAllSports = async (dispatch: any) => {
       dispatch({ type: "FETCH_SPORTS_SUCCESS", payload: data.sports });
     }
   } catch (error) {
-    console.log("Error fetching sports:", error);
     dispatch({
       type: "FETCH_SPORTS_FAILURE",
       payload: "Unable to load sports",
@@ -40,7 +39,6 @@ export const fetchAllSportsForPreferenceSelection = async (dispatch: any) => {
     const data = await response.json();
     dispatch({ type: "FETCH_ALL_SPORTS_SUCCESS", payload: data.sports });
   } catch (error) {
-    console.log("Error fetching sports:", error);
     dispatch({
       type: "FETCH_ALL_SPORTS_FAILURE",
       payload: "Unable to load sports",

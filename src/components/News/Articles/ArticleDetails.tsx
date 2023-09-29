@@ -1,41 +1,41 @@
 import React, { useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
-import { useParams } from "react-router-dom";
 import {
   useArticlesDispatch,
   useArticlesState,
 } from "../../../context/articles/context";
 import { emptyArticle, fetchArticle } from "../../../context/articles/action";
-import { useTabDispatch } from "../../../context/tabs/context";
-import { changeTab } from "../../../context/tabs/action";
 import { Team } from "../../../context/teams/types";
 import ArticleDetailsCardSkeletonLoader from "./Loader/ArticleDetailsCardSkeletonLoader";
+import {
+  useArticleModalDispatch,
+  useArticleModalState,
+} from "../../../context/articleModal/context";
+import { closeTheModal } from "../../../context/articleModal/action";
 
 const ArticleDetails = () => {
-  const [isOpen, setIsOpen] = useState(true);
-  const [tab, setTab] = useState<string | undefined>("");
-  const { id } = useParams<any>();
+  let articleModalState: any = useArticleModalState();
+  let articleModalDispatch: any = useArticleModalDispatch();
+  const [isOpen, setIsOpen] = useState(false);
   const dispatchArticles = useArticlesDispatch();
   let stateArticles: any = useArticlesState();
-  const dispatchTabs = useTabDispatch();
   const { isLoading, article, isError, errorMessage } = stateArticles;
+
   useEffect(() => {
-    fetchArticle(dispatchArticles, Number(id));
-    const urlParams = new URLSearchParams(window.location.search);
-    const tabValue = urlParams.get("tab");
-    console.log(tabValue, "lkjhh");
-    setTab(tabValue);
-  }, []);
+    if (articleModalState?.modalStatus === true) {
+      setIsOpen(true);
+    } else {
+      setIsOpen(false);
+    }
+  }, [articleModalState.modalStatus]);
 
   const closeModal = () => {
-    changeTab(dispatchTabs, { id: tab });
-    history.back();
+    closeTheModal(articleModalDispatch);
     setIsOpen(false);
-    emptyArticle(dispatchArticles);
   };
 
-  if (isLoading) {
+  if (isLoading && isOpen) {
     return <ArticleDetailsCardSkeletonLoader />;
   }
 
@@ -43,7 +43,13 @@ const ArticleDetails = () => {
     return (
       <>
         <Transition appear show={isOpen} as={Fragment}>
-          <Dialog as="div" className="relative z-10" onClose={closeModal}>
+          <Dialog
+            as="div"
+            className="relative z-10"
+            onClose={() => {
+              closeModal();
+            }}
+          >
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -71,7 +77,9 @@ const ArticleDetails = () => {
                       <button
                         type="button"
                         className="text-xl font-semibold rounded-md bg-white text-gray-400 hover:text-gray-500"
-                        onClick={closeModal}
+                        onClick={() => {
+                          closeModal();
+                        }}
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"

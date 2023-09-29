@@ -10,24 +10,27 @@ import { SortDateProvider } from "./context/sortDate/context";
 import { UserProvider } from "./context/users/context";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+import { ArtcleModalProvider } from "./context/articleModal/context";
 function App() {
   return (
     <>
       <UserProvider>
-        <SortDateProvider>
-          <TabProvider>
-            <ArticlesProvider>
-              <TeamsProvider>
-                <AllSportsProvider>
-                  <MatchesProvider>
-                    <RouterProvider router={router} />
-                    <ToastContainer />
-                  </MatchesProvider>
-                </AllSportsProvider>
-              </TeamsProvider>
-            </ArticlesProvider>
-          </TabProvider>
-        </SortDateProvider>
+        <ArtcleModalProvider>
+          <SortDateProvider>
+            <TabProvider>
+              <ArticlesProvider>
+                <TeamsProvider>
+                  <AllSportsProvider>
+                    <MatchesProvider>
+                      <RouterProvider router={router} />
+                      <ToastContainer />
+                    </MatchesProvider>
+                  </AllSportsProvider>
+                </TeamsProvider>
+              </ArticlesProvider>
+            </TabProvider>
+          </SortDateProvider>
+        </ArtcleModalProvider>
       </UserProvider>
     </>
   );

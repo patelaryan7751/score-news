@@ -34,7 +34,6 @@ export const reducer = (
         isAuthenticated: true,
       };
     case "SIGNUP_FAILURE":
-      console.log("kio");
       return {
         ...state,
         isLoading: false,
@@ -104,7 +103,6 @@ export const reducer = (
         isError: false,
       };
     case "PREFERENCE_FAILURE":
-      console.log("kio");
       return {
         ...state,
         isLoading: false,
@@ -135,7 +133,6 @@ export const reducer = (
         isError: false,
       };
     case "PREFERENCE_ADD_FAILURE":
-      console.log("kio");
       return {
         ...state,
         isLoading: false,

@@ -15,7 +15,6 @@ export const fetchArticles = async (dispatch: any) => {
       },
     });
     const data = await response.json();
-    console.log(data, "ki");
     if (isAuth && getSportsArrayFromPreferences().length > 0) {
       dispatch({
         type: "FETCH_ALL_ARTICLES_SUCCESS",
@@ -29,7 +28,6 @@ export const fetchArticles = async (dispatch: any) => {
       dispatch({ type: "FETCH_ALL_ARTICLES_SUCCESS", payload: data });
     }
   } catch (error) {
-    console.log("Error fetching articles:", error);
     dispatch({
       type: "FETCH_ALL_ARTICLES_FAILURE",
       payload: "Unable to load articles",
@@ -47,7 +45,6 @@ export const fetchArticle = async (dispatch: any, id: number) => {
       },
     });
     const data = await response.json();
-    console.log(data, "loi");
     if (response.ok) {
       dispatch({ type: "FETCH_ARTICLE_SUCCESS", payload: data });
     } else {
@@ -57,7 +54,6 @@ export const fetchArticle = async (dispatch: any, id: number) => {
       });
     }
   } catch (error) {
-    console.log("Error fetching article:", error);
     dispatch({
       type: "FETCH_ARTICLE_FAILURE",
       payload: "Unable to load article",

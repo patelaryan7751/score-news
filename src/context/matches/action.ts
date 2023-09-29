@@ -28,7 +28,6 @@ export const fetchMatches = async (dispatch: any) => {
       dispatch({ type: "FETCH_MATCHES_SUCCESS", payload: data.matches });
     }
   } catch (error) {
-    console.log("Error fetching matches:", error);
     dispatch({
       type: "FETCH_MATCHES_FAILURE",
       payload: "Unable to load matches",
@@ -48,7 +47,6 @@ export const fetchMatch = async (dispatch: any, id: number) => {
     const data = await response.json();
     dispatch({ type: "FETCH_MATCH_SUCCESS", payload: data });
   } catch (error) {
-    console.log("Error fetching matches:", error);
     dispatch({
       type: "FETCH_MATCH_FAILURE",
       payload: { matchId: Number(id), errorMsg: "Unable to load match" },

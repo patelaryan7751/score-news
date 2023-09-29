@@ -18,7 +18,6 @@ export const createUser = async (dispatch: any, data: UserDetails) => {
         password: password,
       }),
     });
-    console.log(response);
     const responseData = await response.json();
     if (response.ok) {
       dispatch({
@@ -28,8 +27,6 @@ export const createUser = async (dispatch: any, data: UserDetails) => {
           auth_token: responseData.auth_token,
         },
       });
-      console.log("Sign-up successful");
-      console.log(responseData);
       localStorage.setItem("authToken", responseData.auth_token);
       localStorage.setItem("userData", JSON.stringify(responseData.user));
       location.href = "/account";
@@ -63,7 +60,6 @@ export const getUserSignedIn = async (
         password: password,
       }),
     });
-    console.log(response);
     const responseData = await response.json();
     if (response.ok) {
       dispatch({
@@ -73,8 +69,6 @@ export const getUserSignedIn = async (
           auth_token: responseData.auth_token,
         },
       });
-      console.log("Sign-in successful");
-      console.log(responseData);
       localStorage.setItem("authToken", responseData.auth_token);
       localStorage.setItem("userData", JSON.stringify(responseData.user));
       location.href = "/account";
@@ -97,7 +91,6 @@ export const syncUserWithContextState = async (dispatch: any) => {
   try {
     let auth_token = localStorage.getItem("authToken");
     let userDetails = JSON.parse(localStorage.getItem("userData"));
-    console.log(auth_token, userDetails, "opiy");
     if (!!auth_token && !!userDetails) {
       dispatch({
         type: "SYNC_USER_STATE",
@@ -138,10 +131,8 @@ export const addUserPreference = async (
       },
       body: JSON.stringify({ preferences: { sports: sports, teams: teams } }),
     });
-    console.log(response, "pref1");
     const responseData = await response.json();
     if (response.ok) {
-      console.log(responseData);
       dispatch({
         type: "PREFERENCE_ADD_SUCCESS",
         payload: {
@@ -183,10 +174,8 @@ export const getUserPreference = async (dispatch: any) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(response, "prefGET1");
     const responseData = await response.json();
     if (response.ok) {
-      console.log(responseData);
       dispatch({
         type: "PREFERENCE_SUCCESS",
         payload: {

@@ -36,15 +36,15 @@ const router = createBrowserRouter([
         path: "/sports/:id",
         element: <HomePage />,
       },
-      {
-        path: "/articleDetails/:id",
-        element: (
-          <>
-            <ArticleDetails />
-            <HomePage />
-          </>
-        ),
-      },
+      // {
+      //   path: "/articleDetails/:id",
+      //   element: (
+      //     <>
+      //       <ArticleDetails />
+      //       <HomePage />
+      //     </>
+      //   ),
+      // },
     ],
   },
 
@@ -72,15 +72,15 @@ const router = createBrowserRouter([
         path: "/account/sports/:id",
         element: <HomePage />,
       },
-      {
-        path: "/account/articleDetails/:id",
-        element: (
-          <>
-            <ArticleDetails />
-            <HomePage />
-          </>
-        ),
-      },
+      // {
+      //   path: "/account/articleDetails/:id",
+      //   element: (
+      //     <>
+      //       <ArticleDetails />
+      //       <HomePage />
+      //     </>
+      //   ),
+      // },
     ],
   },
   {

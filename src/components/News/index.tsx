@@ -23,7 +23,6 @@ function AllNews() {
   const navigate = useNavigate();
   const location = useLocation();
   const route = location.pathname;
-  console.log(route);
   const { id } = useParams<SportTabPageParams>();
   let stateSports: any = useAllSportsState();
   const dispatchTabs = useTabDispatch();

@@ -53,23 +53,17 @@ function FavouriteNews() {
   }, [stateTabs, selectSport, stateTeams]);
 
   const getSportNameById = (id: number) => {
-    console.log(id, "getSportNameById");
     let sportName = stateSports?.sports?.find(
       (sport: Sport) => Number(sport?.id) === Number(id)
     )?.name;
-    console.log(sportName, "getSportNameByIdsportName");
     return sportName;
   };
   const handleChangeSports = (event: any) => {
     setSelectSport(event.target.value);
-    console.log(event.target.value, "li");
   };
   const handleChangeTeams = (event: any) => {
     setSelectTeam(event.target.value);
-    console.log(event.target.value, "li2");
   };
-  console.log(selectSport, selectTeam, "liok");
-  console.log(stateTeams, "liouyt");
   return (
     <div className="mt-5 pt-2">
       {stateSports?.isLoading ? (
@@ -107,13 +101,6 @@ function FavouriteNews() {
             className="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-gray-600 sm:text-sm sm:leading-6"
           >
             {stateTeams?.teams.map((team: Team) => {
-              console.log(
-                getSportNameById(Number(selectSport)),
-                team?.plays,
-                team,
-                getSportNameById(Number(selectSport)) === team?.plays,
-                "resultofcheck67"
-              );
               if (getSportNameById(Number(selectSport)) === team?.plays) {
                 return (
                   <option key={team?.id} value={team?.id}>

@@ -15,7 +15,6 @@ const Appbar = () => {
   }, []);
   let state: any = useUserState();
   const dispatchUsers = useUserDispatch();
-  console.log(state, "lio67");
   const { isAuthenticated, userDetails } = state;
 
   const userNavigation = [

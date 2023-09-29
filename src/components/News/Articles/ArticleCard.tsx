@@ -2,6 +2,9 @@ import React from "react";
 import { Article } from "../../../context/articles/types";
 import { Link } from "react-router-dom";
 import { useTabState } from "../../../context/tabs/context";
+import { openModal } from "../../../context/articleModal/action";
+import { useArticleModalDispatch } from "../../../context/articleModal/context";
+import { useArticlesDispatch } from "../../../context/articles/context";
 
 interface ArticleCardProps {
   article: Article;
@@ -9,17 +12,17 @@ interface ArticleCardProps {
 
 function ArticleCard(props: ArticleCardProps) {
   const { id, title, thumbnail, sport, summary, date, teams } = props.article;
+  let articleModalDispatch: any = useArticleModalDispatch();
+  const dispatchArticle = useArticlesDispatch();
   const dateObject = new Date(date);
   const dateOfArticle = dateObject.toISOString().split("T")[0];
   const time = dateObject.toISOString().split("T")[1].split(".")[0];
   let stateTab: any = useTabState();
   return (
-    <Link
-      to={`${
-        location.pathname.includes("account")
-          ? `/account/articleDetails/${id}?tab=${stateTab?.id}`
-          : `/articleDetails/${id}?tab=${stateTab?.id}`
-      }`}
+    <div
+      onClick={() =>
+        openModal(articleModalDispatch, Number(id), dispatchArticle)
+      }
       key={id}
     >
       <div className="sm:flex m-4 bg-white p-3 rounded-md ">
@@ -41,7 +44,7 @@ function ArticleCard(props: ArticleCardProps) {
           </p>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
 

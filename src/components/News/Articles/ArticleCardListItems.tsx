@@ -16,7 +16,6 @@ function ArticleCardListItems() {
     isAllArticlesError,
     errorMessageAllArticles,
   } = stateArticles;
-  console.log(stateTab, "ll");
   const tabBasedDateBasedArticles = articles
     .filter(
       (article: Article) =>
