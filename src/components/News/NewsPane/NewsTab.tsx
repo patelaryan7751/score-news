@@ -29,7 +29,6 @@ function NewsTab() {
     if (event.target.value === "yournews") {
       navigate(`${location.pathname.includes("account") ? "/account" : "/"}`);
     } else {
-      navigate(`/sports/${Number(event.target.value)}`);
       navigate(
         `${
           location.pathname.includes("account")
