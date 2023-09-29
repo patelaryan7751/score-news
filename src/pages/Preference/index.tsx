@@ -14,6 +14,8 @@ import {
   getSportsArrayFromPreferences,
   getTeamsArrayFromPreferences,
 } from "../../utils/commonUtils";
+import PrefereceSkeletonLoader from "./Loader/PrefereceSportsSkeletonLoader";
+import { Link } from "react-router-dom";
 
 export default function Preference() {
   let sportsState: any = useAllSportsState();
@@ -112,7 +114,9 @@ export default function Preference() {
       <form>
         <div className="p-4">
           {sportsState?.isLoading ? (
-            <>Loading...</>
+            <>
+              <PrefereceSkeletonLoader />
+            </>
           ) : (
             <fieldset className="p-2">
               <legend className="text-2xl font-semibold leading-6 text-gray-900">
@@ -151,7 +155,9 @@ export default function Preference() {
         </div>
         <div className="p-4">
           {teamsState?.isLoading ? (
-            <>Loading...</>
+            <>
+              <PrefereceSkeletonLoader />
+            </>
           ) : (
             <fieldset className="overflow-y-scroll h-[300px] custom-scrollbar p-2">
               <legend className="text-2xl font-semibold leading-6 text-gray-900">
@@ -202,12 +208,20 @@ export default function Preference() {
               <p className="text-md">Updating...</p>
             </>
           ) : (
-            <button
-              onClick={handleSubmit}
-              className="m-4 text-white p-2 bg-gray-600 text-center rounded-md hover:bg-gray-500"
-            >
-              Save Preference
-            </button>
+            <>
+              <button
+                onClick={handleSubmit}
+                className="m-4 text-white p-2 bg-gray-600 text-center rounded-md hover:bg-gray-500"
+              >
+                Save Preference
+              </button>
+              <a
+                href={"/account"}
+                className="m-4 text-white px-3 py-2 bg-gray-600 text-center rounded-md hover:bg-gray-500"
+              >
+                Go Back
+              </a>
+            </>
           )}
         </div>
       </form>

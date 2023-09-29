@@ -10,8 +10,8 @@ const AccountLayout = () => {
       <Appbar />
       <main>
         <div className="mx-auto py-4 px-4 overflow-hidden ">
-          <Outlet />
           <ArticleDetails />
+          <Outlet />
         </div>
         <Footer />
       </main>

@@ -24,6 +24,7 @@ function ArticleCard(props: ArticleCardProps) {
         openModal(articleModalDispatch, Number(id), dispatchArticle)
       }
       key={id}
+      className="cursor-pointer"
     >
       <div className="sm:flex m-4 bg-white p-3 rounded-md ">
         <div className="mb-4 mx-auto flex-shrink-0 sm:mb-0 sm:mr-4 order-last">

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { UserCircleIcon } from "@heroicons/react/24/outline";
+import { Cog6ToothIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 import Logo from "../../assets/images/logo.png";
 import { useUserDispatch, useUserState } from "../../context/users/context";
 import { syncUserWithContextState } from "../../context/users/action";
@@ -74,18 +74,29 @@ const Appbar = () => {
               </div>
               <div>
                 <div className="ml-4 flex items-center md:ml-6">
+                  {isAuthenticated ? (
+                    <Menu as="div" className="relative ml-3 mt-2">
+                      <Menu.Button className="rounded-full bg-white text-gray-400 hover:text-gray-600">
+                        <Cog6ToothIcon className="h-8 w-8" aria-hidden="true" />
+                      </Menu.Button>
+                    </Menu>
+                  ) : (
+                    <></>
+                  )}
                   <Menu as="div" className="relative ml-3">
                     <div>
                       {isAuthenticated ? (
-                        <Menu.Button className="rounded-full bg-gray-500 p-1 w-8 h-8 text-gray-400 hover:text-blue-600">
-                          <div className="bg-gray-500 text-sm font-medium text-white">
-                            {userDetails?.name?.charAt(0)}
-                          </div>
-                        </Menu.Button>
+                        <>
+                          <Menu.Button className="rounded-full bg-gray-500 p-1 w-8 h-8 text-gray-400 hover:text-gray-600">
+                            <div className="bg-gray-500 text-sm font-medium text-white">
+                              {userDetails?.name?.charAt(0)}
+                            </div>
+                          </Menu.Button>
+                        </>
                       ) : (
-                        <Menu.Button className="rounded-full bg-white p-1 text-gray-400 hover:text-blue-600">
+                        <Menu.Button className="rounded-full bg-white p-1 text-gray-400 hover:text-gray-600">
                           <UserCircleIcon
-                            className="h-6 w-6"
+                            className="h-8 w-8"
                             aria-hidden="true"
                           />
                         </Menu.Button>
