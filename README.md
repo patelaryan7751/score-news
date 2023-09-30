@@ -5,6 +5,8 @@
 
 Score News is a dynamic web application built with React.js and styled using Tailwind CSS. It offers users real-time sports news articles and live scores for a variety of sports. The platform provides a personalized dashboard where users can select their favorite sports or teams to receive tailored updates. Whether you're a passionate sports enthusiast or a casual follower, Score News keeps you informed and engaged with the latest updates in the sports world.
 
+**Live Link:** https://scorenews.netlify.app/ 
+
 ## Introduction
 
 The Sports News and Scores Dashboard is a web application that provides users with up-to-date sports news articles and live scores for various sports. It allows users to stay informed about their favorite sports, read news articles, and track live match scores, all in one place. Additionally, users can personalize their dashboard by selecting their favorite sports or teams to receive tailored news and score updates.
