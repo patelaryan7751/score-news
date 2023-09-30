@@ -1,5 +1,8 @@
 # Score News
 
+![image](https://github.com/patelaryan7751/score-news/assets/59426397/2360c6b8-55c0-43b1-9a6e-5a70158a725c)
+
+
 Score News is a dynamic web application built with React.js and styled using Tailwind CSS. It offers users real-time sports news articles and live scores for a variety of sports. The platform provides a personalized dashboard where users can select their favorite sports or teams to receive tailored updates. Whether you're a passionate sports enthusiast or a casual follower, Score News keeps you informed and engaged with the latest updates in the sports world.
 
 ## Introduction
