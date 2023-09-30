@@ -270,7 +270,7 @@ const PreferenceModal = () => {
                   >
                     <p className="text-3xl">Preference Selector</p>
                   </Dialog.Title>
-                  <div className="mx-auto p-10">
+                  <div className="md:mx-auto md:p-10">
                     <form>
                       <div className="p-4">
                         {sportsState?.isLoading ? (
