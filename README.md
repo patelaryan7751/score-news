@@ -40,7 +40,9 @@ Each of these personas will have different requirements and expectations from th
 ### Preference Selector 
 ![image](https://github.com/patelaryan7751/score-news/assets/59426397/ae5e8b90-3d4b-4658-9218-faa18196e2e3)
 
+## Video Demo
 
+https://youtu.be/zqLjCOi8-ts
 
 ## Getting Started
 
