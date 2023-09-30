@@ -11,26 +11,29 @@ import { UserProvider } from "./context/users/context";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import { ArtcleModalProvider } from "./context/articleModal/context";
+import { PreferenceModalProvider } from "./context/preferenceModal/context";
 function App() {
   return (
     <>
       <UserProvider>
-        <ArtcleModalProvider>
-          <SortDateProvider>
-            <TabProvider>
-              <ArticlesProvider>
-                <TeamsProvider>
-                  <AllSportsProvider>
-                    <MatchesProvider>
-                      <RouterProvider router={router} />
-                      <ToastContainer />
-                    </MatchesProvider>
-                  </AllSportsProvider>
-                </TeamsProvider>
-              </ArticlesProvider>
-            </TabProvider>
-          </SortDateProvider>
-        </ArtcleModalProvider>
+        <PreferenceModalProvider>
+          <ArtcleModalProvider>
+            <SortDateProvider>
+              <TabProvider>
+                <ArticlesProvider>
+                  <TeamsProvider>
+                    <AllSportsProvider>
+                      <MatchesProvider>
+                        <RouterProvider router={router} />
+                        <ToastContainer />
+                      </MatchesProvider>
+                    </AllSportsProvider>
+                  </TeamsProvider>
+                </ArticlesProvider>
+              </TabProvider>
+            </SortDateProvider>
+          </ArtcleModalProvider>
+        </PreferenceModalProvider>
       </UserProvider>
     </>
   );

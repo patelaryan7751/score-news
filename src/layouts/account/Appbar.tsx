@@ -5,6 +5,10 @@ import { Cog6ToothIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 import Logo from "../../assets/images/logo.png";
 import { useUserDispatch, useUserState } from "../../context/users/context";
 import { syncUserWithContextState } from "../../context/users/action";
+import { useAllSportsDispatch } from "../../context/sports/context";
+import { useTeamsDispatch, useTeamsState } from "../../context/teams/context";
+import { usePreferenceModalDispatch } from "../../context/preferenceModal/context";
+import { openPrefModal } from "../../context/preferenceModal/action";
 
 const classNames = (...classes: string[]): string =>
   classes.filter(Boolean).join(" ");
@@ -15,6 +19,9 @@ const Appbar = () => {
   }, []);
   let state: any = useUserState();
   const dispatchUsers = useUserDispatch();
+  let sportsDispatch = useAllSportsDispatch();
+  let teamsDispatch = useTeamsDispatch();
+  let preferenceModalDispatch = usePreferenceModalDispatch();
   const { isAuthenticated, userDetails } = state;
 
   const userNavigation = [
@@ -28,11 +35,11 @@ const Appbar = () => {
       href: "/account/profile",
       auth: isAuthenticated,
     },
-    {
-      name: "Your Preference",
-      href: "/account/preference",
-      auth: isAuthenticated,
-    },
+    // {
+    //   name: "Your Preference",
+    //   href: "/account/preference",
+    //   auth: isAuthenticated,
+    // },
     {
       name: "Sign out",
       href: "/signout",
@@ -76,7 +83,16 @@ const Appbar = () => {
                 <div className="ml-4 flex items-center md:ml-6">
                   {isAuthenticated ? (
                     <Menu as="div" className="relative ml-3 mt-2">
-                      <Menu.Button className="rounded-full bg-white text-gray-400 hover:text-gray-600">
+                      <Menu.Button
+                        onClick={() =>
+                          openPrefModal(
+                            preferenceModalDispatch,
+                            sportsDispatch,
+                            teamsDispatch
+                          )
+                        }
+                        className="rounded-full bg-white text-gray-400 hover:text-gray-600"
+                      >
                         <Cog6ToothIcon className="h-8 w-8" aria-hidden="true" />
                       </Menu.Button>
                     </Menu>
