@@ -1,11 +1,7 @@
 import React, { useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
-import {
-  useArticlesDispatch,
-  useArticlesState,
-} from "../../../context/articles/context";
-import { emptyArticle, fetchArticle } from "../../../context/articles/action";
+import { useArticlesState } from "../../../context/articles/context";
 import { Team } from "../../../context/teams/types";
 import ArticleDetailsCardSkeletonLoader from "./Loader/ArticleDetailsCardSkeletonLoader";
 import {
@@ -18,7 +14,6 @@ const ArticleDetails = () => {
   let articleModalState: any = useArticleModalState();
   let articleModalDispatch: any = useArticleModalDispatch();
   const [isOpen, setIsOpen] = useState(false);
-  const dispatchArticles = useArticlesDispatch();
   let stateArticles: any = useArticlesState();
   const { isLoading, article, isError, errorMessage } = stateArticles;
 

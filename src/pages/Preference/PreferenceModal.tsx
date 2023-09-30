@@ -1,13 +1,9 @@
 import React, { useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
-import {
-  useAllSportsDispatch,
-  useAllSportsState,
-} from "../../context/sports/context";
+import { useAllSportsState } from "../../context/sports/context";
 import { Sport } from "../../context/sports/types";
-import { useTeamsDispatch, useTeamsState } from "../../context/teams/context";
-import { fetchAllTeamsForPreferenceSelection } from "../../context/teams/action";
+import { useTeamsState } from "../../context/teams/context";
 import { Team } from "../../context/matches/types";
 import { useUserDispatch, useUserState } from "../../context/users/context";
 import { addUserPreference } from "../../context/users/action";

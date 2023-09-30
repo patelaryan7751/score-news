@@ -1,6 +1,4 @@
 import React from "react";
-import { useTabState } from "../../../context/tabs/context";
-import { useNavigate } from "react-router-dom";
 import { useArticleModalDispatch } from "../../../context/articleModal/context";
 import { useArticlesDispatch } from "../../../context/articles/context";
 import { openModal } from "../../../context/articleModal/action";

@@ -35,11 +35,6 @@ const Appbar = () => {
       href: "/account/profile",
       auth: isAuthenticated,
     },
-    // {
-    //   name: "Your Preference",
-    //   href: "/account/preference",
-    //   auth: isAuthenticated,
-    // },
     {
       name: "Sign out",
       href: "/signout",

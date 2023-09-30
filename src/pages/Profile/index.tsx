@@ -1,9 +1,8 @@
 import React from "react";
-import { useUserDispatch, useUserState } from "../../context/users/context";
+import { useUserState } from "../../context/users/context";
 
 function Profile() {
   let state: any = useUserState();
-  const dispatchUsers = useUserDispatch();
   const { userDetails } = state;
   return (
     <div className="overflow-hidden bg-white shadow sm:rounded-lg h-screen">

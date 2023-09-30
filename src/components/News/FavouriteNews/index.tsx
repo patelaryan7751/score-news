@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import FavouriteNewsCard from "./FavouriteNewsCard";
 import { useAllSportsState } from "../../../context/sports/context";
 import { Sport } from "../../../context/sports/types";
 import { useTeamsState } from "../../../context/teams/context";
