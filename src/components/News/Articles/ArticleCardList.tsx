@@ -1,10 +1,24 @@
-import React from "react";
-import ArticleCardListItems from "./ArticleCardListItems";
+import React, { Suspense } from "react";
+import ErrorBoundary from "../../ErrorBoundary";
+import ArticleCardListSkeletonLoader from "./Loader/ArticleCardListSkeletonLoader";
+const ArticleCardListItems = React.lazy(() => import("./ArticleCardListItems"));
 
 function ArticleCardList() {
   return (
     <>
-      <ArticleCardListItems />
+      <ErrorBoundary>
+        <Suspense
+          fallback={
+            <div className="suspense-loading">
+              <>
+                <ArticleCardListSkeletonLoader />
+              </>
+            </div>
+          }
+        >
+          <ArticleCardListItems />
+        </Suspense>
+      </ErrorBoundary>
     </>
   );
 }

@@ -12,8 +12,6 @@ interface FavouriteNewsCardProps {
 
 function FavouriteNewsCard(props: FavouriteNewsCardProps) {
   const { id, title, summary } = props;
-
-  let stateTab: any = useTabState();
   let articleModalDispatch: any = useArticleModalDispatch();
   const dispatchArticle = useArticlesDispatch();
   return (

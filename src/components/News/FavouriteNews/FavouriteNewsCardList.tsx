@@ -1,5 +1,9 @@
-import React from "react";
-import FavouriteNewsCardListItems from "./FavouriteNewsCardListItems";
+import React, { Suspense } from "react";
+import ErrorBoundary from "../../ErrorBoundary";
+import FavouriteNewsCardListSkeletonLoader from "./Loader/FavouriteNewsCardListSkeletonLoader";
+const FavouriteNewsCardListItems = React.lazy(
+  () => import("./FavouriteNewsCardListItems")
+);
 interface FavouriteNewsCardListProps {
   teamId: string;
   sportId: string;
@@ -7,10 +11,22 @@ interface FavouriteNewsCardListProps {
 function FavouriteNewsCardList(props: FavouriteNewsCardListProps) {
   return (
     <>
-      <FavouriteNewsCardListItems
-        teamId={props?.teamId}
-        sportId={props?.sportId}
-      />
+      <ErrorBoundary>
+        <Suspense
+          fallback={
+            <div className="suspense-loading">
+              <>
+                <FavouriteNewsCardListSkeletonLoader />
+              </>
+            </div>
+          }
+        >
+          <FavouriteNewsCardListItems
+            teamId={props?.teamId}
+            sportId={props?.sportId}
+          />
+        </Suspense>
+      </ErrorBoundary>
     </>
   );
 }
